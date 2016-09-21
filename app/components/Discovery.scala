@@ -2,14 +2,10 @@ package components
 
 import javax.inject.Inject
 
-import play.api.{Configuration, Logger}
+import play.api.Configuration
 import traits.IDiscovery
 
-/**
-  * Created by leoiacovini on 9/21/16.
-  */
-
-class Discovery @Inject()(config: Configuration) extends IDiscovery {
+protected class Discovery @Inject()(config: Configuration) extends IDiscovery {
 
   type RouteEntry = Map[String, String]
 
