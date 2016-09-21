@@ -1,14 +1,20 @@
 package controllers
 
 import javax.inject._
-import play.api._
 import play.api.mvc._
+import traits.IDiscovery
+import play.api.libs.json.Json
 
 @Singleton
-class MainController @Inject() extends Controller {
+class MainController @Inject()(discovery: IDiscovery) extends Controller {
 
-  def index = Action {
-    Ok(views.html.index("Your new application is ready."))
+  def index = Action(parse.json) { request =>
+    Ok("OK")
+  }
+
+  def getDiscovery = Action {
+    val jsonResp = Json.toJson(discovery.routesFor("any"))
+    Ok(jsonResp)
   }
 
 }
