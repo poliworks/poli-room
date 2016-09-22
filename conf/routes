@@ -4,6 +4,7 @@
 
 GET     /                           controllers.MainController.index
 GET     /discovery                  controllers.MainController.getDiscovery
+GET     /protected                  controllers.MainController.protectedRoute
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
