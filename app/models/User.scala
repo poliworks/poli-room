@@ -22,7 +22,7 @@ object User extends DatabaseModel[User]("users") {
   def register(user: User, password: String): User = {
     val preparedUser = user.copy(encryptedPassword = password.bcrypt)
     val dao = new UserDAO()
-    DB localTx {implicit session =>
+    DB localTx { implicit session =>
       dao.findUserByEmail(preparedUser.email) match {
         case Some(_) => throw new BadRequestException("User with this email already exists")
         case None => dao.createUser(preparedUser)

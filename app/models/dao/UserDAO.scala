@@ -13,12 +13,11 @@ class UserDAO {
     user.copy(id = id)
   }
 
-  def findUserById(id: Long)(implicit session: DBSession): Option[User] = {
-    sql"SELECT * FROM users WHERE id = ${id}".map(User.apply).single.apply()
+  def findBy(field: String, value: String)(implicit session: DBSession): Option[User] = {
+    sql"SELECT * FROM users WHERE ${field} = ${value}".map(User.apply).single.apply()
   }
 
-  def findUserByEmail(email: String)(implicit session: DBSession): Option[User] = {
-    sql"SELECT * FROM users WHERE email = ${email}".map(User.apply).single.apply()
-  }
+  def findUserById(id: Long)(implicit session: DBSession): Option[User] = findBy("id", s"$id")(session)
+  def findUserByEmail(email: String)(implicit session: DBSession): Option[User] = findBy("email", email)
 
 }
