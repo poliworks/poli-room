@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 import traits.ITokenService
 import scala.util.Try
 
-protected class TokenService @Inject()(config: Configuration) extends ITokenService {
+class TokenService @Inject()(config: Configuration) extends ITokenService {
 
   private val jwtSecretKey = config.getString("jwtSecretKey").get
   private val oneDay = 60 * 60 * 24

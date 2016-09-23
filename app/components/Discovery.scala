@@ -5,7 +5,7 @@ import javax.inject.Inject
 import play.api.Configuration
 import traits.IDiscovery
 
-protected class Discovery @Inject()(config: Configuration) extends IDiscovery {
+class Discovery @Inject()(config: Configuration) extends IDiscovery {
 
   type RouteEntry = Map[String, String]
 

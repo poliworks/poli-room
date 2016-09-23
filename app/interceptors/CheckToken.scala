@@ -9,9 +9,9 @@ import scala.util.{Failure, Success}
 
 class CheckToken(tokenService: ITokenService, userType: String = null) extends ActionRefiner[Request, AuthRequest] {
   def refine[A](request: Request[A]) = Future.successful {
-    new AuthRequest(request, null).token.map { t => tokenService.validate(t, Option(userType)) match {
+    new AuthRequest(request, null).rawToken.map { t => tokenService.validate(t, Option(userType)) match {
       case Success(token) => Right(new AuthRequest(request, token))
       case Failure(f) => Left(BadRequest("Invalid Token")) }
-    }.getOrElse(Left(BadRequest("Missing Token")))
+    }.getOrElse(Left(BadRequest("Token Missing")))
   }
 }

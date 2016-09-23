@@ -1,7 +1,6 @@
 import com.google.inject.AbstractModule
 import traits.{IDiscovery, ITokenService}
-import components.Discovery
-import components.TokenService
+import components._
 
 class Module extends AbstractModule {
 
