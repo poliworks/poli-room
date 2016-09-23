@@ -1,6 +1,8 @@
 package controllers
 
 import javax.inject._
+
+import misc.json.schemas.RegisterUserSchema
 import play.api.mvc._
 import traits.{IDiscovery, ITokenService, Interceptors}
 import play.api.libs.json.Json
