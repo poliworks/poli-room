@@ -10,6 +10,51 @@ CREATE TABLE users (
   user_type VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE rooms (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  building VARCHAR(255) NULL,
+  department VARCHAR(255) NULL,
+  size INT NULL
+);
+
+CREATE TABLE features (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE rooms_features (
+  room_id BIGINT REFERENCES rooms(id),
+  features_id BIGINT REFERENCES features(id)
+);
+
+CREATE TABLE problems (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  reported_by BIGSERIAL NOT NULL,
+  reported_at TIMESTAMP,
+  feature_id BIGINT REFERENCES features(id),
+  room_id BIGINT REFERENCES rooms(id)
+);
+
+
+CREATE TYPE RECURRENCE AS ENUM('daily', 'weekly', 'monthly', 'yearly');
+CREATE TABLE events(
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  start_time TIMESTAMP,
+  end_time TIMESTAMP,
+  name VARCHAR(255) NOT NULL,
+  description VARCHAR(255),
+  scheduled_by BIGINT REFERENCES users(id),
+  recurrence RECURRENCE,
+  room_id BIGINT REFERENCES rooms(id)
+);
 # --- !Downs
 
 DROP TABLE users;
+DROP TABLE rooms;
+DROP TABLE features;
+DROP TABLE problems;
+DROP TABLE rooms_features;
+DROP TABLE events;
