@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 import play.api.mvc.Result
 import play.api.mvc.Results._
 
-class HttpException(message: String, reason: String = "", code: Int) extends Exception(message) {
+class HttpException(message: String, reason: String = "", code: Int) extends RuntimeException(message) {
   def resultType: Result = Status(code)(Json.obj("message" -> message, "reason" -> reason))
   def getReason = reason
 }

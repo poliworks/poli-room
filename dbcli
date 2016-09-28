@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 if [[ $1 == "delete" ]]; then
+    docker stop poli-room-postgresql
 	docker rm poli-room-postgresql
 elif [[ $1 == "start" ]]; then
 	docker start poli-room-postgresql

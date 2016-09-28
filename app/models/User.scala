@@ -6,7 +6,9 @@ import traits.DatabaseModel
 import com.github.t3hnar.bcrypt._
 import misc.exceptions.BadRequestException
 
-case class User(name: String, email: String, encryptedPassword: String, userType: String, id: Long = 0L)
+case class User(name: String, email: String, encryptedPassword: String, userType: String, id: Long = 0L) {
+  def checkPassword(password: String): Boolean = password.isBcrypted(this.encryptedPassword)
+}
 
 object User extends DatabaseModel[User]("users") {
 
@@ -30,12 +32,8 @@ object User extends DatabaseModel[User]("users") {
     }
   }
 
-  def login(email: String, password: String): Option[User] = {
-    DB readOnly { implicit session =>
-      new UserDAO().findUserByEmail(email).map { user =>
-        if (password.isBcrypted(user.encryptedPassword)) user else null
-      }
-    }
+  def login(email: String, password: String): Option[User] = DB readOnly { implicit session =>
+    new UserDAO().findUserByEmail(email).filter(_.checkPassword(password))
   }
 
 }
