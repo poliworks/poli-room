@@ -50,6 +50,7 @@ CREATE TABLE events(
   recurrence RECURRENCE,
   room_id BIGINT REFERENCES rooms(id)
 );
+
 # --- !Downs
 
 DROP TABLE users;
