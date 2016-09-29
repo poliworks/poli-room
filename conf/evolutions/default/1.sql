@@ -13,9 +13,9 @@ CREATE TABLE users (
 CREATE TABLE rooms (
   id BIGSERIAL NOT NULL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  building VARCHAR(255) NULL,
-  department VARCHAR(255) NULL,
-  size INT NULL
+  building VARCHAR(255),
+  department VARCHAR(255),
+  size INT
 );
 
 CREATE TABLE features (
