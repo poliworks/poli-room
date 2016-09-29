@@ -32,14 +32,14 @@ CREATE TABLE problems (
   id BIGSERIAL NOT NULL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   description VARCHAR(255) NOT NULL,
-  reported_by BIGSERIAL NOT NULL,
+  reported_by BIGINT REFERENCES users(id),
   reported_at TIMESTAMP,
   feature_id BIGINT REFERENCES features(id),
   room_id BIGINT REFERENCES rooms(id)
 );
 
-
 CREATE TYPE RECURRENCE AS ENUM('daily', 'weekly', 'monthly', 'yearly');
+
 CREATE TABLE events(
   id BIGSERIAL NOT NULL PRIMARY KEY,
   start_time TIMESTAMP,
