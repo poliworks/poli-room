@@ -1,3 +1,4 @@
+
 name := """poli-room"""
 
 version := "1.0-SNAPSHOT"
@@ -19,4 +20,3 @@ libraryDependencies ++= Seq(
   "org.scalikejdbc" %% "scalikejdbc-test"   % "2.4.2"   % Test,
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test
 )
-

@@ -1,0 +1,16 @@
+version: '2'
+services:
+  poli-room:
+    image: leoiacovini/poli-room
+    ports:
+    - "9000:9000"
+    depends_on:
+    - postgresql
+  postgresql:
+    image: postgres
+    environment:
+    - POSTGRES_USER=poli-room
+    - POSTGRES_PASSWORD=poli-room
+    - POSTGRES_DB=poli-room
+    ports:
+    - "5432:5432"
