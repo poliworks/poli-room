@@ -12,5 +12,3 @@ services:
     - POSTGRES_USER=poli-room
     - POSTGRES_PASSWORD=poli-room
     - POSTGRES_DB=poli-room
-    ports:
-    - "5432:5432"
