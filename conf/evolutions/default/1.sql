@@ -2,6 +2,9 @@
 
 # --- !Ups
 
+CREATE TYPE RECURRENCE AS ENUM('daily', 'weekly', 'monthly', 'yearly');
+CREATE TYPE USERTYPE AS ENUM('student', 'teacher');
+
 CREATE TABLE users (
   id BIGSERIAL NOT NULL PRIMARY KEY,
   email VARCHAR(255) NOT NULL UNIQUE,
@@ -15,7 +18,8 @@ CREATE TABLE rooms (
   name VARCHAR(255) NOT NULL,
   building VARCHAR(255),
   department VARCHAR(255),
-  size INT
+  size INT,
+  CHECK (size >= 0)
 );
 
 CREATE TABLE features (
@@ -38,12 +42,11 @@ CREATE TABLE problems (
   room_id BIGINT REFERENCES rooms(id)
 );
 
-CREATE TYPE RECURRENCE AS ENUM('daily', 'weekly', 'monthly', 'yearly');
-
 CREATE TABLE events(
   id BIGSERIAL NOT NULL PRIMARY KEY,
   start_time TIMESTAMP,
   end_time TIMESTAMP,
+  CHECK (end_time > events.start_time),
   name VARCHAR(255) NOT NULL,
   description VARCHAR(255),
   scheduled_by BIGINT REFERENCES users(id),
