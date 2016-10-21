@@ -1,0 +1,25 @@
+{
+  "name": "poli-room-front",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Poli room project for PCS3623",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.4.5",
+    "babel-cli": "latest",
+    "babel-preset-react": "latest"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leoiacovini/poli-room-front.git"
+  },
+  "engines" : {
+    "node" : "0.12.x"
+  }
+}
