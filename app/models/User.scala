@@ -1,10 +1,11 @@
 package models
 
-import models.dao.UserDAO
+import models.dao.UserDao
 import scalikejdbc._
 import traits.DatabaseModel
 import com.github.t3hnar.bcrypt._
 import misc.exceptions.BadRequestException
+import misc.json.schemas.RegisterUserSchema
 
 case class User(name: String, email: String, encryptedPassword: String, userType: String, id: Long = 0L) {
   def checkPassword(password: String): Boolean = password.isBcrypted(this.encryptedPassword)
@@ -23,7 +24,7 @@ object User extends DatabaseModel[User]("users") {
   @throws(classOf[BadRequestException])
   def register(user: User, password: String): User = {
     val preparedUser = user.copy(encryptedPassword = password.bcrypt)
-    val dao = new UserDAO()
+    val dao = new UserDao()
     DB localTx { implicit session =>
       dao.findUserByEmail(preparedUser.email) match {
         case Some(_) => throw new BadRequestException("User with this email already exists")
@@ -32,8 +33,14 @@ object User extends DatabaseModel[User]("users") {
     }
   }
 
+  @throws(classOf[BadRequestException])
+  def register(registerUserSchema: RegisterUserSchema): User = {
+    val userToRegister = User(registerUserSchema.name, registerUserSchema.email, null, registerUserSchema.userType)
+    User.register(userToRegister, registerUserSchema.password)
+  }
+
   def login(email: String, password: String): Option[User] = DB readOnly { implicit session =>
-    new UserDAO().findUserByEmail(email).filter(_.checkPassword(password))
+    new UserDao().findUserByEmail(email).filter(_.checkPassword(password))
   }
 
 }

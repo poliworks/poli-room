@@ -28,3 +28,8 @@ object PasswordValidator extends Validator[String] {
   override val errorMessage: String = "Invalid password"
   override def validateFunction(x: String): Boolean = x.length >= 6
 }
+
+object UserTypeValidator extends Validator[String] {
+  override val errorMessage: String = "Invalid User Type"
+  override def validateFunction(x: String): Boolean = List("student", "teacher").contains(x)
+}

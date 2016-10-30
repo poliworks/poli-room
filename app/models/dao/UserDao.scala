@@ -3,7 +3,7 @@ package models.dao
 import models.User
 import scalikejdbc._
 
-class UserDAO {
+class UserDao {
 
   private val u = User.syntax("u")
 
