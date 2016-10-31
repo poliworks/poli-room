@@ -14,12 +14,10 @@ case class User(name: String, email: String, encryptedPassword: String, userType
 object User extends DatabaseModel[User]("users") {
 
   override def apply(rn: ResultName[User])(rs: WrappedResultSet): User = User(
-    rs.get(rn.name), rs.get(rn.email), rs.get(rn.encryptedPassword), rs.get(rn.userType) ,rs.get(rn.id)
-  )
+    rs.get(rn.name), rs.get(rn.email), rs.get(rn.encryptedPassword), rs.get(rn.userType) ,rs.get(rn.id))
 
   override def apply(rs: WrappedResultSet): User = User(
-    rs.string("name"), rs.string("email"), rs.string("encrypted_password"), rs.string("user_type"), rs.long("id")
-  )
+    rs.string("name"), rs.string("email"), rs.string("encrypted_password"), rs.string("user_type"), rs.long("id"))
 
   @throws(classOf[BadRequestException])
   def register(user: User, password: String): User = {
