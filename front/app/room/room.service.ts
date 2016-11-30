@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 import {RequestArgs} from "@angular/http/src/interfaces";
+import {AppComponent} from "../app.component";
 
 @Injectable()
 export class RoomService {
@@ -29,11 +30,11 @@ export class HttpService {
     }
 
     getMethod(reqMap: ReqMap): RequestMethod {
-        switch (reqMap.method) {
-            case "GET": {
+        switch (reqMap.method.toLowerCase()) {
+            case "get": {
                 return RequestMethod.Get;
             }
-            case "POST": {
+            case "post": {
                 return RequestMethod.Post;
             }
         }
@@ -41,6 +42,9 @@ export class HttpService {
 
     renderUrl(reqMap: ReqMap): string {
         var str = reqMap.url;
+        if (AppComponent.discovery.hasOwnProperty(reqMap.url)) {
+            str =  AppComponent.discovery[reqMap.url];
+        }
         for (let key in reqMap.replaceMap) {
             str = str.replace("/:" + key + "/g", reqMap.replaceMap[key])
         }
@@ -52,13 +56,10 @@ export class HttpService {
     }
 }
 
-
 export interface ReqMap {
-
     url: string;
     method: string;
     replaceMap?: Map<string, any>;
     body?: any;
     handler: (value: Response) => any;
-
 }

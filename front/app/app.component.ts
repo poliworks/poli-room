@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RoomService} from "./room/room.service";
+import {RoomService, HttpService} from "./room/room.service";
 import {Response} from "@angular/http";
 
 @Component({
@@ -11,24 +11,25 @@ import {Response} from "@angular/http";
       </div>
               
      `,
-    providers: [RoomService]
+    providers: [HttpService]
 })
 
 export class AppComponent implements OnInit {
 
-    private static discovery: Object[];
+    static discovery: Object = {};
 
     ngOnInit(): void {
-        this.roomService.getRooms().then(d => this.setDiscovery(d));
+        let reqMap = {url: "http://localhost:9000/discovery", method: "GET", handler: AppComponent.setDiscovery};
+        this.http.req(reqMap);
     }
 
-    setDiscovery(discovery: Response) {
+    static setDiscovery(discovery: Response) {
         discovery = discovery.json();
         console.log(discovery)
     }
 
     name = 'Angular';
 
-    constructor(private roomService: RoomService) { }
+    constructor(private http: HttpService) { }
 
 }
