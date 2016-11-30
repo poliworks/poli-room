@@ -14,7 +14,7 @@ class RoomDao {
     }.map(Room.apply).single().apply()
   }
 
-  def findById(id: Long)(implicit session: DBSession) = findBy("id", s"$id")
+  def findById(id: Long)(implicit session: DBSession): Option[Room] = findBy("id", s"$id")
 
   def findAllFromBuilding(building: String)(implicit session: DBSession): List[Room] = {
     withSQL {
@@ -23,12 +23,13 @@ class RoomDao {
   }
 
   def registerRoom(registerRoomSchema: RegisterRoomSchema)(implicit session: DBSession): Room = {
+    val col = Room.column
     val id = withSQL {
       insert.into(Room).namedValues(
-        r.name -> registerRoomSchema.name,
-        r.department -> registerRoomSchema.department,
-        r.size -> registerRoomSchema.size,
-        r.building -> registerRoomSchema.building)
+        col.name -> registerRoomSchema.name,
+        col.department -> registerRoomSchema.department,
+        col.size -> registerRoomSchema.size,
+        col.building -> registerRoomSchema.building)
     }.updateAndReturnGeneratedKey().apply()
     registerRoomSchema.toRoom(id)
   }
