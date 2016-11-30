@@ -11,7 +11,7 @@ class RoomDao {
   def findBy(attribute: String, value: String)(implicit session: DBSession): Option[Room] = {
     withSQL {
       select.from(Room as r).where.eq(r.column(attribute), value)
-    }.map(Room.apply).single().apply()
+    }.map(Room(r.resultName)).single().apply()
   }
 
   def findById(id: Long)(implicit session: DBSession): Option[Room] = findBy("id", s"$id")
@@ -19,7 +19,7 @@ class RoomDao {
   def findAllFromBuilding(building: String)(implicit session: DBSession): List[Room] = {
     withSQL {
       select.from(Room as r).where.eq(r.building, building)
-    }.map(Room.apply).list.apply()
+    }.map(Room(r.resultName)).list.apply()
   }
 
   def registerRoom(registerRoomSchema: RegisterRoomSchema)(implicit session: DBSession): Room = {
