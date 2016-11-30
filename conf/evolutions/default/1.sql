@@ -52,7 +52,7 @@ CREATE TABLE events(
   scheduled_by BIGINT REFERENCES users(id),
   recurrence RECURRENCE,
   room_id BIGINT REFERENCES rooms(id)
-);
+)
 
 # --- !Downs
 
