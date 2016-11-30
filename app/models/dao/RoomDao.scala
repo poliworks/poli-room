@@ -33,4 +33,12 @@ class RoomDao {
     registerRoomSchema.toRoom(id)
   }
 
+  def allRoomsByBuilding(implicit session: DBSession): Map[String, List[Room]] = {
+    val rooms = withSQL {
+      select.from(Room as r)
+    }.map(Room(r.resultName)).list.apply()
+    val buildings: List[String] = rooms.map(r => r.building)
+    buildings.foldLeft(Map[String, List[Room]]()) { (m, b) => m + (b -> rooms.filter(r => r.building == b)) }
+  }
+
 }
