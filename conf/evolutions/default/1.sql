@@ -2,7 +2,7 @@
 
 # --- !Ups
 
-CREATE TYPE RECURRENCE AS ENUM('daily', 'weekly', 'monthly', 'yearly');
+CREATE TYPE RECURRENCE AS ENUM('daily', 'weekly', 'monthly', 'yearly', 'single');
 CREATE TYPE USERTYPE AS ENUM('student', 'teacher');
 
 CREATE TABLE users (

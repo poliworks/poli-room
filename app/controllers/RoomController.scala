@@ -2,8 +2,8 @@ package controllers
 
 import misc.exceptions.{BadRequestException, NotFoundException}
 import misc.json.schemas.RegisterRoomSchema
-import models.Room
-import models.dao.RoomDao
+import models.{Event, Room}
+import models.dao.{EventDao, RoomDao}
 import play.api.libs.json._
 import play.api.mvc.{Action, Controller}
 import scalikejdbc._
@@ -37,6 +37,13 @@ class RoomController extends Controller with Interceptors {
   def getRoomsByBuilding() = Action {
     val allRooms = DB readOnly { implicit session => new RoomDao().allRoomsByBuilding }
     Ok(Json.toJson(allRooms))
+  }
+
+  def getRoomEvents(roomId: Long) = Action {
+    val events: List[Event] = DB readOnly { implicit session =>
+      new EventDao().getAllEventsForRoom(1)
+    }
+    Ok(Json.toJson(events))
   }
 
 }
