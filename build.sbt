@@ -14,10 +14,10 @@ libraryDependencies ++= Seq(
   "com.pauldijou" %% "jwt-core" % "0.8.1",
   "com.pauldijou" %% "jwt-play-json" % "0.8.1",
   "com.github.t3hnar" %% "scala-bcrypt" % "2.6",
-  "org.scalikejdbc" %% "scalikejdbc"       % "2.4.2",
-  "org.scalikejdbc" %% "scalikejdbc-config"  % "2.4.2",
+  "org.scalikejdbc" %% "scalikejdbc" % "2.5.0",
+  "org.scalikejdbc" %% "scalikejdbc-config" % "2.5.0",
   "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.5.1",
   "org.scalikejdbc" %% "scalikejdbc-play-dbapi-adapter" % "2.5.1",
-  "org.scalikejdbc" %% "scalikejdbc-test"   % "2.4.2"   % Test,
+  "org.scalikejdbc" %% "scalikejdbc-test" % "2.4.2" % Test,
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test
 )

@@ -6,6 +6,7 @@ import traits.DatabaseModel
 import com.github.t3hnar.bcrypt._
 import misc.exceptions.BadRequestException
 import misc.json.schemas.RegisterUserSchema
+import play.api.libs.json.{Format, Json}
 
 case class User(name: String, email: String, encryptedPassword: String, userType: String, id: Long = 0L) {
   def checkPassword(password: String): Boolean = password.isBcrypted(this.encryptedPassword)
@@ -18,6 +19,8 @@ object User extends DatabaseModel[User]("users") {
 
   override def apply(rs: WrappedResultSet): User = User(
     rs.string("name"), rs.string("email"), rs.string("encrypted_password"), rs.string("user_type"), rs.long("id"))
+
+  implicit val format: Format[User] = Json.format[User]
 
   @throws(classOf[BadRequestException])
   def register(user: User, password: String): User = {
