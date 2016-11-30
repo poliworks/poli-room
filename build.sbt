@@ -9,6 +9,7 @@ scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq(
   evolutions,
+  filters,
   "org.postgresql" % "postgresql" % "9.4.1210",
   "com.pauldijou" %% "jwt-core" % "0.8.1",
   "com.pauldijou" %% "jwt-play-json" % "0.8.1",

@@ -1,5 +1,6 @@
 logs
 target
+*.log
 /front/*/*.js
 /front/*/*.map
 /front/typings
