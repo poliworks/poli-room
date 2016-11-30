@@ -8,10 +8,10 @@ elif [[ $1 == "start" ]]; then
 elif [[ $1 == "stop" ]]; then
 	docker stop poli-room-postgresql &> /dev/null || echo 'No container to stop...'
 elif [[ $1 == "setup" ]]; then
-	docker stop poli-room-postgresql &> /dev/null || echo 'No container to stop...'
-	docker rm poli-room-postgresql &> /dev/null || echo 'No container to remove...'
+	docker stop poli-room-postgresql || echo 'No container to stop...'
+	docker rm poli-room-postgresql || echo 'No container to remove...'
 	echo "Creating new container now..."
-	docker run --name poli-room-postgresql -p 5432:5432 -e POSTGRES_USER=poli-room -e POSTGRES_PASSWORD=poli-room -e POSTGRES_DB=poli-room -d postgres &> /dev/null;
+	docker run --name poli-room-postgresql -p 5432:5432 -e POSTGRES_USER=poli-room -e POSTGRES_PASSWORD=poli-room -e POSTGRES_DB=poli-room -d postgres;
 	echo "Container created succesfully"
 else
 	echo "Choose one of the following options:"
