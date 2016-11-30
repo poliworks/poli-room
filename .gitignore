@@ -1,5 +1,7 @@
 logs
 target
+/front/*/*.js
+/front/*/*.map
 /.idea
 /.idea_modules
 /.classpath
