@@ -11,17 +11,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var SidenavComponent = (function () {
     function SidenavComponent() {
+        this.buildingsRooms = {
+            "Prédio da Elétrica": [
+                { id: 1, name: "B2-04" },
+                { id: 2, name: "B2-05" },
+                { id: 3, name: "B2-08" },
+                { id: 4, name: "C1-49" }
+            ],
+            "Prédio da Biênio": [
+                { name: "B1-04" },
+                { name: "B1-05" },
+                { name: "B1-01" }
+            ],
+            "Prédio do Civil": [
+                { name: "S11" },
+                { name: "S17" }
+            ]
+        };
+        this.buildings = ["Prédio da Administracão", "Prédio da Civil"]; //Object.keys(buildingRooms);
     }
+    SidenavComponent.prototype.getBuildings = function () {
+        var buildings = [];
+        for (var k in this.buildingsRooms) {
+            buildings.push(k);
+        }
+        return buildings;
+    };
     SidenavComponent.prototype.ngOnInit = function () {
-        console.log("Porra");
         jQuery('.collapsible').collapsible();
+        //jQuery('.modal-trigger').leanModal();
     };
     return SidenavComponent;
 }());
 SidenavComponent = __decorate([
     core_1.Component({
         selector: "side-nav",
-        template: "\n    <ul class=\"side-nav fixed collapsible\" data-collapsible=\"accordion\">\n        <li>\n          <div class=\"waves-effect waves-blue collapsible-header\">Pr\u00E9dio da El\u00E9trica</div>\n          <div class=\"collapsible-body\">\n            <div class=\"collection\">\n              <a class=\"room\" href=\"#!\">B2-04</a>\n              <a class=\"room\" href=\"#!\">B2-05</a>\n              <a class=\"room\" href=\"#!\">B2-08</a>\n              <a class=\"room\" href=\"#!\">C1-49</a>\n            </div>\n          </div>\n        </li>\n        <li>\n          <div class=\"waves-effect waves-blue collapsible-header\">Pr\u00E9dio da Bi\u00EAnio</div>\n          <div class=\"collapsible-body\">\n            <div class=\"collection\">\n              <a href=\"#!\">B1-04</a>\n              <a href=\"#!\">B1-05</a>\n              <a href=\"#!\">B1-01</a>\n              <a href=\"#!\">A1-04</a>\n            </div>\n          </div>\n        </li>\n        <li>\n          <div class=\"waves-effect waves-blue collapsible-header\">Pr\u00E9dio da Bi\u00EAnio</div>\n          <div class=\"collapsible-body\">\n            <div class=\"collection\">\n              <a href=\"#!\">S11</a>\n              <a href=\"#!\">S17</a>\n            </div>\n          </div>\n        </li>\n      </ul>\n    "
+        template: "\n    <ul class=\"side-nav fixed collapsible\" data-collapsible=\"accordion\">\n        <li>\n            <a class=\"modal-trigger waves-effect waves-green collapsible-header\" href=\"#new-room-modal\">Nova Sala</a>\n        </li>\n        <li *ngFor=\"let building of getBuildings()\">\n          <div class=\"waves-effect waves-blue collapsible-header\">{{building}}</div>\n          <div class=\"collapsible-body\">\n            <div class=\"collection\">\n              <a *ngFor=\"let room of this.buildingsRooms[building]\" class=\"room\" routerLink=\"/room/{{room.id}}\" href=\"#\">{{room.name}}</a>\n            </div>\n          </div>\n        </li>\n      </ul>\n    "
     }),
     __metadata("design:paramtypes", [])
 ], SidenavComponent);

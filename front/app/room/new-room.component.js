@@ -9,16 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var RoomComponent = (function () {
-    function RoomComponent() {
+var NewRoomComponent = (function () {
+    function NewRoomComponent() {
     }
-    return RoomComponent;
+    NewRoomComponent.prototype.ngOnInit = function () {
+        jQuery('.modal-trigger').leanModal();
+    };
+    return NewRoomComponent;
 }());
-RoomComponent = __decorate([
+NewRoomComponent = __decorate([
     core_1.Component({
-        template: "\n    <side-nav></side-nav>\n    <room-content></room-content>\n    <new-room-modal></new-room-modal>\n    "
+        selector: "new-room-modal",
+        template: "\n    <div id=\"new-room-modal\" class=\"modal modal-fixed-footer\">\n        <div class=\"modal-content\">\n          <h4>Modal Header</h4>\n          <p>A bunch of text</p>\n        </div>\n        <div class=\"modal-footer\">\n          <a href=\"#!\" class=\"modal-action modal-close waves-effect waves-green btn-flat \">Agree</a>\n        </div>\n    </div>\n    "
     }),
     __metadata("design:paramtypes", [])
-], RoomComponent);
-exports.RoomComponent = RoomComponent;
-//# sourceMappingURL=room-page.component.js.map
+], NewRoomComponent);
+exports.NewRoomComponent = NewRoomComponent;
+//# sourceMappingURL=new-room.component.js.map

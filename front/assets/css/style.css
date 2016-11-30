@@ -57,14 +57,14 @@ table.highlight>tbody>tr:hover {
 }
 .main-space {
   position: absolute;
-  top: 64px;
+  top: 0;
   bottom: 0;
   right: 0;
   left: 240px;
-  z-index: -1;
+  z-index: 1;
 }
 .main-container {
-  margin-left: 240px;
+  position: relative;
   margin-right: auto;
   margin-left: auto;
   width: 90%;
@@ -103,4 +103,5 @@ table.highlight>tbody>tr:hover {
 
 nav {
   position: fixed;
+  top:0;
 }

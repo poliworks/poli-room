@@ -8,33 +8,13 @@ declare var jQuery : any;
     template: `
     <ul class="side-nav fixed collapsible" data-collapsible="accordion">
         <li>
-          <div class="waves-effect waves-blue collapsible-header">Prédio da Elétrica</div>
-          <div class="collapsible-body">
-            <div class="collection">
-              <a class="room" href="#!">B2-04</a>
-              <a class="room" href="#!">B2-05</a>
-              <a class="room" href="#!">B2-08</a>
-              <a class="room" href="#!">C1-49</a>
-            </div>
-          </div>
+            <a class="modal-trigger waves-effect waves-green collapsible-header" href="#new-room-modal">Nova Sala</a>
         </li>
-        <li>
-          <div class="waves-effect waves-blue collapsible-header">Prédio da Biênio</div>
+        <li *ngFor="let building of getBuildings()">
+          <div class="waves-effect waves-blue collapsible-header">{{building}}</div>
           <div class="collapsible-body">
             <div class="collection">
-              <a href="#!">B1-04</a>
-              <a href="#!">B1-05</a>
-              <a href="#!">B1-01</a>
-              <a href="#!">A1-04</a>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="waves-effect waves-blue collapsible-header">Prédio da Biênio</div>
-          <div class="collapsible-body">
-            <div class="collection">
-              <a href="#!">S11</a>
-              <a href="#!">S17</a>
+              <a *ngFor="let room of this.buildingsRooms[building]" class="room" routerLink="/room/{{room.id}}" href="#">{{room.name}}</a>
             </div>
           </div>
         </li>
@@ -42,9 +22,33 @@ declare var jQuery : any;
     `
 })
 export class SidenavComponent implements OnInit {
+    buildingsRooms : Map<string, any> = {
+        "Prédio da Elétrica": [
+            {id: 1, name: "B2-04"},
+            {id: 2, name: "B2-05"},
+            {id: 3, name: "B2-08"},
+            {id: 4, name: "C1-49"}
+        ],
+        "Prédio da Biênio": [
+            {name: "B1-04"},
+            {name: "B1-05"},
+            {name: "B1-01"}
+        ],
+        "Prédio do Civil": [
+            {name: "S11"},
+            {name: "S17"}
+        ]
+    };
+    getBuildings() {
+        let buildings : Array[] = [];
+        for(let k in this.buildingsRooms) {
+            buildings.push(k);
+        }
+        return buildings;
+    }
+    buildings : Array[] = ["Prédio da Administracão", "Prédio da Civil"]; //Object.keys(buildingRooms);
     ngOnInit(){
-        console.log("Porra");
         jQuery('.collapsible').collapsible();
-
+        //jQuery('.modal-trigger').leanModal();
     }
 }

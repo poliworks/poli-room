@@ -1,0 +1,1 @@
+{"version":3,"file":"new-room.component.js","sourceRoot":"","sources":["new-room.component.ts"],"names":[],"mappings":";;;;;;;;;;AAAA,sCAAgD;AAkBhD;IAAA;IAIA,CAAC;IAHG,mCAAQ,GAAR;QACI,MAAM,CAAC,gBAAgB,CAAC,CAAC,SAAS,EAAE,CAAC;IACzC,CAAC;IACL,uBAAC;AAAD,CAAC,AAJD,IAIC;AAJD;IAdC,gBAAS,CAAC;QACP,QAAQ,EAAE,gBAAgB;QAC1B,QAAQ,EAAE,kXAUT;KACJ,CAAC;;oBAKD;AAJY,2BAAA,gBAAgB,CAAA"}
