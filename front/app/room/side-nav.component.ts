@@ -22,7 +22,7 @@ declare var jQuery : any;
     `
 })
 export class SidenavComponent implements OnInit {
-    buildingsRooms : Map<string, any> = {
+    buildingsRooms : Object = {
         "Prédio da Elétrica": [
             {id: 1, name: "B2-04"},
             {id: 2, name: "B2-05"},
@@ -40,13 +40,13 @@ export class SidenavComponent implements OnInit {
         ]
     };
     getBuildings() {
-        let buildings : Array[] = [];
+        let buildings : Object[] = [];
         for(let k in this.buildingsRooms) {
             buildings.push(k);
         }
         return buildings;
     }
-    buildings : Array[] = ["Prédio da Administracão", "Prédio da Civil"]; //Object.keys(buildingRooms);
+    buildings : Object[] = ["Prédio da Administracão", "Prédio da Civil"]; //Object.keys(buildingRooms);
     ngOnInit(){
         jQuery('.collapsible').collapsible();
         //jQuery('.modal-trigger').leanModal();

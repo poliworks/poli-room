@@ -23,7 +23,7 @@ import { Router,
     `
 })
 export class ProblemsComponent {
-    problems : Array[] = [
+    problems : Object[] = [
         {
             "id": 1,
             "name": "Projetor sumiu!!",

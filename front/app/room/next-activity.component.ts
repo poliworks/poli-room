@@ -25,7 +25,7 @@ declare var moment : any;
     `
 })
 export class NextActivityComponent {
-    events : Array[] = [
+    events : Object[] = [
         {
             "name": "Evento 1",
             "description": "Um evento qualquer",

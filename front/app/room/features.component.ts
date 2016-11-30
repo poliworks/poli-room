@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Router,
-    NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
     selector: `room-features`,
@@ -18,7 +17,14 @@ import { Router,
     `
 })
 export class FeaturesComponent {
-    features : Array[] = [
+
+    getFeatures(): Object[] {
+
+
+        return []
+    }
+
+    features : Object[] = [
         {
             "name": "quadro branco",
             "img": "whiteboard.png",
