@@ -11,7 +11,7 @@ class UserController extends Controller with Interceptors {
   def registerUser = Action(schemaCoerce(RegisterUserSchema)) { request =>
     val regSchema = request.body
     val newUser = User.register(regSchema)
-    Ok(newUser)
+    Ok(Json.toJson(newUser))
   }
 
 }
