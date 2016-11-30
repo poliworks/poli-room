@@ -4,8 +4,7 @@ import { Router,
 
 @Component({
     template: `
-    <h2>ROOM</h2>
-    <p>{{message}}</p>
+    <side-nav></side-nav>
     `
 })
 export class RoomComponent { }

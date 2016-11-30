@@ -4,9 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 import { AppComponent } from './app.component';
-import { LoginFormComponent } from "./login-form.component";
-import { RoomComponent } from "./room-page.component";
-import {NavbarComponent} from "./navbar.component";
+import { LoginFormComponent } from "./login/login-form.component";
+import { RoomComponent } from "./room/room-page.component";
+import {NavbarComponent} from "./shared/navbar.component";
+import {SidenavComponent} from "./room/side-nav.component";
 
 const appRoutes : Routes = [
     {path: "login", component: LoginFormComponent},
@@ -17,7 +18,7 @@ const appRoutes : Routes = [
     imports: [ BrowserModule,
         RouterModule.forRoot(appRoutes)
                 ],
-    declarations: [ AppComponent, LoginFormComponent, RoomComponent, NavbarComponent ],
+    declarations: [ AppComponent, LoginFormComponent, RoomComponent, NavbarComponent, SidenavComponent ],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

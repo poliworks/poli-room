@@ -3,9 +3,9 @@ import { Router,
     NavigationExtras } from '@angular/router';
 
 @Component({
-    selector: `navbar`,
+    selector: `room-content`,
     template: `
-    <h2>NAVBAR</h2>
+    <side-nav></side-nav>
     `
 })
-export class NavbarComponent { }
+export class RoomContentComponent { }
