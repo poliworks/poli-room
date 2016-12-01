@@ -71,4 +71,9 @@ class RoomController extends Controller with Interceptors {
     Ok(Json.toJson(newEvent))
   }
 
+  def removeRoom(roomId: Long) = Action {
+    DB localTx { implicit session => new RoomDao().removeRoom(roomId) }
+    Ok()
+  }
+
 }
