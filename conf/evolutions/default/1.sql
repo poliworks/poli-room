@@ -79,7 +79,7 @@ INSERT INTO rooms_features (room_id, features_id) VALUES (2, 4);
 INSERT INTO rooms_features (room_id, features_id) VALUES (2, 5);
 INSERT INTO rooms_features (room_id, features_id) VALUES (3, 6);
 INSERT INTO rooms_features (room_id, features_id) VALUES (3, 7);
-INSERT INTO rooms_features (room_id, features_id) VALUES (1, 6);
+INSERT INTO rooms_features (room_id, features_id) VALUES (1, 6)
 
 # --- !Downs
 

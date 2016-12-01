@@ -11,7 +11,7 @@ class EventController extends Controller {
 
   def removeEvent(eventId: Long) = Action {
     DB localTx { implicit session => new EventDao().removeEvent(eventId) }
-    Ok()
+    Ok
   }
 
 }

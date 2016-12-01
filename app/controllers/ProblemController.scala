@@ -11,7 +11,7 @@ class ProblemController extends Controller {
 
   def removeProblem(problemId: Long) = Action {
     DB localTx { implicit session => new ProblemDao().removeProblem(problemId) }
-    Ok()
+    Ok
   }
 
 }

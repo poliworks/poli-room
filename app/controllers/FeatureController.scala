@@ -11,7 +11,7 @@ class FeatureController extends Controller {
 
   def removeFeature(featureId: Long) = Action {
     DB localTx { implicit session => new FeatureDao().removeFeature(featureId) }
-    Ok()
+    Ok
   }
 
 }

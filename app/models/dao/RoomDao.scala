@@ -14,7 +14,9 @@ class RoomDao {
     }.map(Room(r.resultName)).single().apply()
   }
 
-  def findById(id: Long)(implicit session: DBSession): Option[Room] = findBy("id", s"$id")
+  def findById(id: Long)(implicit session: DBSession): Option[Room] = withSQL {
+    select.from(Room as r).where.eq(r.id, id)
+  }.map(Room(r.resultName)).single().apply()
 
   def findAllFromBuilding(building: String)(implicit session: DBSession): List[Room] = {
     withSQL {

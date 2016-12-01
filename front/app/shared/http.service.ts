@@ -33,7 +33,7 @@ export class HttpService {
 
     req(reqMap: ReqMap): void {
         console.log("REQ: " + reqMap.url);
-        if (HttpService.discovery == null) {
+        if (HttpService.discovery === null) {
             console.log("NULL - INIT DISCOVERY");
             this.init(() => {
                 this.simpleReq(reqMap);

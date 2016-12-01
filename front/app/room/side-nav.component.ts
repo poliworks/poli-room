@@ -42,7 +42,6 @@ export class SidenavComponent implements OnInit {
         for(let k in this.buildingsRooms) {
             buildings.push(k);
         }
-        console.log("Peguei os predios")
         return buildings;
     }
 

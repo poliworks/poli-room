@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { Router,
-    NavigationExtras } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router, Params, NavigationExtras, ActivatedRoute} from '@angular/router';
+import {HttpService} from "../shared/http.service";
+import {Response} from "@angular/http";
 
 @Component({
     selector: `room-problems`,
@@ -22,22 +23,25 @@ import { Router,
       </div> <!-- ends col MANUTENÇÃO -->
     `
 })
-export class ProblemsComponent {
-    problems : Object[] = [
-        {
-            "id": 1,
-            "name": "Projetor sumiu!!",
-            "description": " O curioso caso do projetor desaparecido!"
-        },
-        {
-            "id": 2,
-            "name": "O Ar Condicionado precisa de terapia",
-            "description": "Temperamental, o ar funciona quando está de bom humor. No entanto, os alunos não estão de bom humor."
-        },
-        {
-            "id": 3,
-            "name": "Limpar a lousa",
-            "description": "Há contos antigos que dizem que a lousa uma vez foi branca. Mas nunca foi vista assim faz alguns séculos."
-        }
-    ]
+export class ProblemsComponent implements OnInit {
+    problems : Object[] = [];
+
+    currentRoomId: number;
+
+    constructor (private http: HttpService, private route: ActivatedRoute, private router: Router) {}
+
+    ngOnInit() {
+        this.currentRoomId = this.route.params["id"];
+        this.http.req({url: "room_problems",
+            method: "get",
+            replaceMap: {id: 1},
+            handler: this.setProblems.bind(this)})
+    }
+
+    setProblems(response: Response) {
+        this.problems = response.json();
+        console.log(response.json());
+    }
+
+
 }
