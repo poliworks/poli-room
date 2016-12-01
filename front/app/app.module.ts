@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
+import {NgModule, APP_INITIALIZER, OnInit} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpModule }    from '@angular/http';
+import {HttpModule, Response}    from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from "./login/login-form.component";
@@ -13,11 +13,13 @@ import {NextActivityComponent} from "./room/next-activity.component";
 import {ProblemsComponent} from "./room/problems.component";
 import {FeaturesComponent} from "./room/features.component";
 import {NewRoomComponent} from "./room/new-room.component";
+import {HttpService, DiscoveryEntry} from "./room/room.service";
+import {isBoolean} from "util";
 
 const appRoutes : Routes = [
     {path: "login", component: LoginFormComponent},
     {path: "room/:id", component: RoomComponent}
-]
+];
 
 @NgModule({
     imports: [ BrowserModule, RouterModule.forRoot(appRoutes), HttpModule],
@@ -35,4 +37,8 @@ const appRoutes : Routes = [
     ],
     bootstrap:    [ AppComponent ]
 })
-export class AppModule { }
+
+
+export class AppModule {
+
+}

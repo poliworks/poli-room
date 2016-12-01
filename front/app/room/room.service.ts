@@ -8,25 +8,43 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 import {RequestArgs} from "@angular/http/src/interfaces";
 import {AppComponent} from "../app.component";
+import {isNullOrUndefined} from "util";
+import {AppModule} from "../app.module";
 
-@Injectable()
-export class RoomService {
-
-    constructor (private http: HttpService) {}
-
-    getRooms(): void {
-        this.http.req({url: "", method: "", handler: null})
-    }
-
-}
 
 @Injectable()
 export class HttpService {
 
     constructor (private http: Http) {}
 
+    static discovery: Object = null;
+
+    init(fn: () => void) {
+        console.log("init: get-discovery")
+        this.http.get("http://localhost:9000/discovery").toPromise().then(r => this.setDiscovery(fn, r))
+    }
+
+    setDiscovery(fn: () => void, response: Response) {
+        HttpService.discovery = response.json();
+        console.log(HttpService.discovery);
+        console.log("Discovery Setado");
+        fn();
+    }
+
     req(reqMap: ReqMap): void {
-        this.http.request(this.getRequestMap(reqMap)).toPromise().then(reqMap.handler)
+        console.log("REQ: " + reqMap.url);
+        if (HttpService.discovery == null) {
+            console.log("NULL - INIT DISCOVERY");
+            this.init(() => {
+                this.simpleReq(reqMap);
+            });
+        } else {
+            this.simpleReq(reqMap);
+        }
+    }
+
+    private simpleReq(reqMap: ReqMap) {
+        this.http.request(this.getRequestMap(reqMap)).toPromise().then(r => reqMap.handler(r))
     }
 
     getMethod(reqMap: ReqMap): RequestMethod {
@@ -42,8 +60,10 @@ export class HttpService {
 
     renderUrl(reqMap: ReqMap): string {
         var str = reqMap.url;
-        if (AppComponent.discovery.hasOwnProperty(reqMap.url)) {
-            str =  AppComponent.discovery[reqMap.url];
+        console.log("Req: " + HttpService.discovery[reqMap.url]);
+        if (HttpService.discovery[reqMap.url]) {
+            str =  HttpService.discovery[reqMap.url]["url"];
+            console.log("Achei: " + HttpService.discovery[reqMap.url].url)
         }
         for (let key in reqMap.replaceMap) {
             str = str.replace("/:" + key + "/g", reqMap.replaceMap[key])
@@ -62,4 +82,9 @@ export interface ReqMap {
     replaceMap?: Map<string, any>;
     body?: any;
     handler: (value: Response) => any;
+}
+
+export interface DiscoveryEntry {
+    url?: string,
+    method?: string,
 }

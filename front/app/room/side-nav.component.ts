@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import { Router,
     NavigationExtras } from '@angular/router';
+import {Response} from "@angular/http";
+import {HttpService} from "./room.service";
 declare var jQuery : any;
 
 @Component({
@@ -19,26 +21,22 @@ declare var jQuery : any;
           </div>
         </li>
       </ul>
-    `
+    `,
+    providers: [HttpService]
 })
 export class SidenavComponent implements OnInit {
-    buildingsRooms : Object = {
-        "Prédio da Elétrica": [
-            {id: 1, name: "B2-04"},
-            {id: 2, name: "B2-05"},
-            {id: 3, name: "B2-08"},
-            {id: 4, name: "C1-49"}
-        ],
-        "Prédio da Biênio": [
-            {name: "B1-04"},
-            {name: "B1-05"},
-            {name: "B1-01"}
-        ],
-        "Prédio do Civil": [
-            {name: "S11"},
-            {name: "S17"}
-        ]
-    };
+
+    buildingsRooms : Object = {};
+
+    getRoomsPerBuilding(response: Response) {
+        console.group("RESPOSTA");
+        console.log(response);
+        console.log(response.json());
+        console.groupEnd();
+        this.buildingsRooms = response.json();
+    }
+
+
     getBuildings() {
         let buildings : Object[] = [];
         for(let k in this.buildingsRooms) {
@@ -46,8 +44,15 @@ export class SidenavComponent implements OnInit {
         }
         return buildings;
     }
+
     buildings : Object[] = ["Prédio da Administracão", "Prédio da Civil"]; //Object.keys(buildingRooms);
-    ngOnInit(){
+
+    constructor(private http: HttpService) {}
+
+    ngOnInit(): void {
+        console.log("Requesting to get rooms");
+        let reqMap = {url: "rooms_per_building", method: "get", handler: this.getRoomsPerBuilding};
+        this.http.req(reqMap);
         jQuery('.collapsible').collapsible();
         //jQuery('.modal-trigger').leanModal();
     }
