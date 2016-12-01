@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Router, Params, NavigationExtras, ActivatedRoute} from '@angular/router';
 import {HttpService} from "../shared/http.service";
 import {Response} from "@angular/http";
+import 'rxjs/add/operator/switchMap';
 
 @Component({
     selector: `room-content`,
@@ -14,8 +15,8 @@ import {Response} from "@angular/http";
             <br/>
 
             <div class="row">
-              <room-next-activity></room-next-activity>
-              <room-problems></room-problems>
+              <room-next-activity [roomId]="roomId"></room-next-activity>
+              <room-problems [roomId]="roomId"></room-problems>
             </div> <!-- end row of MANUTENÇÃO and PROXIMAS ATIVIDADES -->
             <div class="row">
               <room-features></room-features>
@@ -28,18 +29,23 @@ import {Response} from "@angular/http";
 })
 export class RoomContentComponent implements OnInit {
 
-    constructor(private http: HttpService, private route: ActivatedRoute, private router: Router) {}
+    constructor(private http: HttpService, private route: ActivatedRoute, private router: Router) {
+    }
+
 
     roomId: number;
     name: string;
     building: string;
 
     ngOnInit() {
-        this.roomId = this.route.snapshot.params["id"];
+        this.route.params.switchMap((params: Params) => this.roomId = params["id"]).subscribe(v => this.getRoom());
+    }
+
+    getRoom() {
         this.http.req({url: "get_room",
-                       method: "get",
-                       replaceMap: {id: this.roomId},
-                       handler: this.setRoom.bind(this)})
+            method: "get",
+            replaceMap: {id: this.roomId},
+            handler: this.setRoom.bind(this)})
     }
 
     setRoom(response: Response) {

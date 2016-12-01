@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef, Input, Output, OnChanges, SimpleChanges} from '@angular/core';
 import { Router,
     NavigationExtras } from '@angular/router';
 import {HttpService} from "../shared/http.service";
@@ -27,16 +27,20 @@ declare var moment : any;
      </div>
     `
 })
-export class NextActivityComponent implements OnInit {
+export class NextActivityComponent implements OnInit, OnChanges {
+
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.getEvents();
+    }
+
     constructor (private http: HttpService) { }
 
     ngOnInit(): void {
         this.events = [];
-        this.http.req({url: "room_events",
-                       method: "get",
-                       replaceMap: {id: 1},
-                       handler: this.setEvents.bind(this)})
     }
+
+    @Input() roomId: number;
 
     events : Object[] = [];
 
@@ -45,6 +49,13 @@ export class NextActivityComponent implements OnInit {
     }
     getFormattedDate(utc: string): string {
         return moment(utc).format("DD/MM")
+    }
+
+    private getEvents() {
+        this.http.req({url: "room_events",
+            method: "get",
+            replaceMap: {id: this.roomId},
+            handler: this.setEvents.bind(this)})
     }
 
     private setEvents(response: Response) {

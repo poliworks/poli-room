@@ -41,7 +41,7 @@ class RoomController extends Controller with Interceptors {
 
   def getRoomEvents(roomId: Long) = Action {
     val events: List[Event] = DB readOnly { implicit session =>
-      new EventDao().getAllEventsForRoom(1)
+      new EventDao().getAllEventsForRoom(roomId)
     }
     Ok(Json.toJson(events))
   }
