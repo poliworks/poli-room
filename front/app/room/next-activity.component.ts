@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { Router,
     NavigationExtras } from '@angular/router';
 import {HttpService} from "../shared/http.service";
 import {Response} from "@angular/http";
+import {log} from "util";
 declare var moment : any;
 @Component({
     selector: `room-next-activity`,
@@ -27,14 +28,14 @@ declare var moment : any;
     `
 })
 export class NextActivityComponent implements OnInit {
-
-    constructor (private http: HttpService) {}
+    constructor (private http: HttpService) { }
 
     ngOnInit(): void {
+        this.events = [];
         this.http.req({url: "room_events",
                        method: "get",
                        replaceMap: {id: 1},
-                       handler: this.setEvents})
+                       handler: this.setEvents.bind(this)})
     }
 
     events : Object[] = [];
@@ -47,7 +48,10 @@ export class NextActivityComponent implements OnInit {
     }
 
     private setEvents(response: Response) {
+        console.log("events was");
+        console.log(this.events);
         this.events = response.json();
-        console.log(response)
+        console.log("setting events to");
+        console.log(response.json());
     }
 }

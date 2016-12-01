@@ -19,12 +19,12 @@ export class HttpService {
 
     static discovery: Object = null;
 
-    init(fn: () => void) {
+    init(fn: Function) {
         console.log("init: get-discovery")
         this.http.get("http://localhost:9000/discovery").toPromise().then(r => this.setDiscovery(fn, r))
     }
 
-    setDiscovery(fn: () => void, response: Response) {
+    setDiscovery(fn: Function, response: Response) {
         HttpService.discovery = response.json();
         console.log(HttpService.discovery);
         console.log("Discovery Setado");
@@ -54,6 +54,9 @@ export class HttpService {
             }
             case "post": {
                 return RequestMethod.Post;
+            }
+            case "delete": {
+                return RequestMethod.Delete;
             }
         }
     }

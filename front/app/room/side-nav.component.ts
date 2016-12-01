@@ -46,15 +46,12 @@ export class SidenavComponent implements OnInit {
         return buildings;
     }
 
-    buildings : Object[] = ["Prédio da Administracão", "Prédio da Civil"]; //Object.keys(buildingRooms);
-
     constructor(private http: HttpService) {}
 
     ngOnInit(): void {
         console.log("Requesting to get rooms");
-        let reqMap = {url: "rooms_per_building", method: "get", handler: this.getRoomsPerBuilding};
+        let reqMap = {url: "rooms_per_building", method: "get", handler: this.getRoomsPerBuilding.bind(this)};
         this.http.req(reqMap);
         jQuery('.collapsible').collapsible();
-        //jQuery('.modal-trigger').leanModal();
     }
 }
