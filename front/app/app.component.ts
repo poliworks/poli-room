@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpService, DiscoveryEntry} from "./room/room.service";
+import {HttpService, DiscoveryEntry} from "./shared/http.service";
 import {Response} from "@angular/http";
 
 @Component({

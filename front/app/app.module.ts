@@ -13,7 +13,7 @@ import {NextActivityComponent} from "./room/next-activity.component";
 import {ProblemsComponent} from "./room/problems.component";
 import {FeaturesComponent} from "./room/features.component";
 import {NewRoomComponent} from "./room/new-room.component";
-import {HttpService, DiscoveryEntry} from "./room/room.service";
+import {HttpService, DiscoveryEntry} from "./shared/http.service";
 import {isBoolean} from "util";
 
 const appRoutes : Routes = [

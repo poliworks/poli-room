@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { Router,
     NavigationExtras } from '@angular/router';
 import {Response} from "@angular/http";
-import {HttpService} from "./room.service";
+import {HttpService} from "../shared/http.service";
 declare var jQuery : any;
 
 @Component({
