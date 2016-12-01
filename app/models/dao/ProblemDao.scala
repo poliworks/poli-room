@@ -19,7 +19,7 @@ class ProblemDao {
   def createNewProblem(reg: RegisterProblemSchema, roomId: Long)(implicit session: DBSession): Problem = {
     val now = DateTime.now()
     val id = sql"""INSERT INTO problems (name, description, reported_by, reported_at, feature_id, room_id)
-          VALUES (${reg.name}, ${reg.description}, ${reg.reportedBy}, ${now}, ${reg.featureId}, ${reg.roomId})""".updateAndReturnGeneratedKey().apply()
+          VALUES (${reg.name}, ${reg.description}, ${reg.reportedBy}, ${now}, ${reg.featureId}, ${roomId})""".updateAndReturnGeneratedKey().apply()
     new Problem(reg.name, reg.description, reg.reportedBy, now, reg.featureId, roomId, id)
   }
 
