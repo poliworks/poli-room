@@ -21,4 +21,8 @@ class EventDao {
     new Event(reg.name, reg.description, reg.recurrence, reg.startTime, reg.endTime, reg.scheduledBy, roomId, id)
   }
 
+  def removeEvent(eventId: Long)(implicit session: DBSession): Unit = {
+    sql"""DELETE FROM events WHERE id = ${eventId}""".executeUpdate.apply()
+  }
+
 }

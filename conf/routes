@@ -2,18 +2,19 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /                                  controllers.MainController.index
 GET     /discovery                         controllers.MainController.getDiscovery
-GET     /protected                         controllers.MainController.protectedRoute
 
 GET     /api/rooms/:id                     controllers.RoomController.getRoom(id: Long)
 GET     /api/buildings/:building/rooms     controllers.RoomController.getRooms(building)
 GET     /api/buildings/rooms               controllers.RoomController.getRoomsByBuilding
 POST    /api/rooms                         controllers.RoomController.registerRoom
+
 GET     /api/rooms/:id/events              controllers.RoomController.getRoomEvents(id: Long)
 POST    /api/rooms/:id/events              controllers.RoomController.registerNewEvent(id: Long)
+
 GET     /api/rooms/:id/features            controllers.RoomController.getRoomFeatures(id: Long)
 POST    /api/rooms/:id/features            controllers.RoomController.registerNewFeature(id: Long)
+
 GET     /api/rooms/:id/problems            controllers.RoomController.getRoomProblems(id: Long)
 POST    /api/rooms/:id/problems            controllers.RoomController.registerNewProblem(id: Long)
 

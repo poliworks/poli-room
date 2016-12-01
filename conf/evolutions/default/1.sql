@@ -31,8 +31,8 @@ CREATE TABLE features (
 );
 
 CREATE TABLE rooms_features (
-  room_id BIGINT REFERENCES rooms(id),
-  features_id BIGINT REFERENCES features(id)
+  room_id BIGINT REFERENCES rooms(id) ON DELETE CASCADE,
+  features_id BIGINT REFERENCES features(id) ON DELETE CASCADE
 );
 
 CREATE TABLE problems (
@@ -41,8 +41,8 @@ CREATE TABLE problems (
   description VARCHAR(255) NOT NULL,
   reported_by BIGINT REFERENCES users(id),
   reported_at TIMESTAMP,
-  feature_id BIGINT REFERENCES features(id),
-  room_id BIGINT REFERENCES rooms(id)
+  feature_id BIGINT REFERENCES features(id) ON DELETE CASCADE,
+  room_id BIGINT REFERENCES rooms(id) ON DELETE CASCADE
 );
 
 CREATE TABLE events(
@@ -54,7 +54,7 @@ CREATE TABLE events(
   description VARCHAR(255),
   scheduled_by BIGINT REFERENCES users(id),
   recurrence RECURRENCE,
-  room_id BIGINT REFERENCES rooms(id)
+  room_id BIGINT REFERENCES rooms(id) ON DELETE CASCADE
 );
 
 INSERT INTO rooms (id, name, building, department, size) VALUES (1, 'teste', 'fedido', 'coco', 10);

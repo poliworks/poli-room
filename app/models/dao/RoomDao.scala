@@ -42,4 +42,8 @@ class RoomDao {
     buildings.foldLeft(Map[String, List[Room]]()) { (m, b) => m + (b -> rooms.filter(r => r.building == b)) }
   }
 
+  def removeRoom(roomId: Long)(implicit session: DBSession): Unit = {
+    sql"""DELETE FROM rooms WHERE id = ${roomId}""".executeUpdate.apply()
+  }
+
 }

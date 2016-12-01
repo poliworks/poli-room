@@ -22,4 +22,8 @@ class FeatureDao {
     new Feature(reg.name, reg.description, reg.quantity, reg.img, featureId)
   }
 
+  def removeFeature(featureId: Long)(implicit session: DBSession): Unit = {
+    sql"""DELETE FROM features WHERE id = ${featureId}""".executeUpdate.apply()
+  }
+
 }

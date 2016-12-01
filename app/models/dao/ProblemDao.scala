@@ -23,4 +23,8 @@ class ProblemDao {
     new Problem(reg.name, reg.description, reg.reportedBy, now, reg.featureId, roomId, id)
   }
 
+  def removeProblem(problemId: Long)(implicit session: DBSession): Unit = {
+    sql"""DELETE FROM problems WHERE id = ${problemId}""".executeUpdate.apply()
+  }
+
 }
