@@ -1,8 +1,8 @@
 package controllers
 
 import misc.exceptions.{BadRequestException, NotFoundException}
-import misc.json.schemas.RegisterRoomSchema
-import models.{Event, Problem, Room}
+import misc.json.schemas.{RegisterEventSchema, RegisterFeatureSchema, RegisterProblemSchema, RegisterRoomSchema}
+import models.{Event, Feature, Problem, Room}
 import models.dao.{EventDao, FeatureDao, ProblemDao, RoomDao}
 import play.api.libs.json._
 import play.api.mvc.{Action, Controller}
@@ -54,6 +54,21 @@ class RoomController extends Controller with Interceptors {
   def getRoomProblems(roomId: Long) = Action {
     val roomProblems: List[Problem] = DB readOnly { implicit session => new ProblemDao().getProblemsByRoomId(roomId) }
     Ok(Json.toJson(roomProblems))
+  }
+
+  def registerNewProblem(roomId: Long) = Action(schemaCoerce(RegisterProblemSchema)) { request =>
+    val newProblem: Problem = DB localTx { implicit session => new ProblemDao().createNewProblem(request.body, roomId) }
+    Ok(Json.toJson(newProblem))
+  }
+
+  def registerNewFeature(roomId: Long) = Action(schemaCoerce(RegisterFeatureSchema)) { request =>
+    val newFeature: Feature = DB localTx { implicit session => new FeatureDao().registerNewFeature(request.body, roomId)}
+    Ok(Json.toJson(newFeature))
+  }
+
+  def registerNewEvent(roomId: Long) = Action(schemaCoerce(RegisterEventSchema)) { request =>
+    val newEvent = DB localTx { implicit session => new EventDao().registerNewEvent(request.body, roomId)}
+    Ok(Json.toJson(newEvent))
   }
 
 }

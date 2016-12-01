@@ -1,6 +1,7 @@
 package models
 
 import org.joda.time.DateTime
+import play.api.libs.json.{Json, Writes}
 import scalikejdbc.WrappedResultSet
 import traits.DatabaseModel
 
@@ -12,6 +13,9 @@ case class Problem(name: String, description: String, reportedBy: Long, reported
 }
 
 object Problem extends DatabaseModel[Problem]("problems") {
+
+  implicit val jodaWrites: Writes[DateTime] = Writes.jodaDateWrites("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+  implicit val format = Json.format[Problem]
 
   override def apply(rn: scalikejdbc.ResultName[Problem])(rs: WrappedResultSet): Problem = Problem(
     rs.get(rn.name), rs.get(rn.description), rs.get(rn.reportedBy), rs.get(rn.reportedAt), rs.get(rn.featureId), rs.get(rn.roomId), rs.get(rn.id))

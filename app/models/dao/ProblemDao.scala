@@ -16,11 +16,11 @@ class ProblemDao {
     sql"SELECT * FROM problems WHERE room_id = ${roomId}".map(Problem.apply).list.apply()
   }
 
-  def createNewProblem(reg: RegisterProblemSchema): Problem = {
+  def createNewProblem(reg: RegisterProblemSchema, roomId: Long)(implicit session: DBSession): Problem = {
     val now = DateTime.now()
     val id = sql"""INSERT INTO problems (name, description, reported_by, reported_at, feature_id, room_id)
           VALUES (${reg.name}, ${reg.description}, ${reg.reportedBy}, ${now}, ${reg.featureId}, ${reg.roomId})""".updateAndReturnGeneratedKey().apply()
-    new Problem(reg.name, reg.description, reg.reportedBy, now, reg.featureId, reg.roomId, id)
+    new Problem(reg.name, reg.description, reg.reportedBy, now, reg.featureId, roomId, id)
   }
 
 }
