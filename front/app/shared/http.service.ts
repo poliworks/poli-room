@@ -18,10 +18,14 @@ export class HttpService {
     constructor (private http: Http) {}
 
     static discovery: Object = null;
-
+    static isDiscoverySet: Boolean = false;
     init(fn: Function) {
         console.log("init: get-discovery")
-        this.http.get("http://localhost:9000/discovery").toPromise().then(r => this.setDiscovery(fn, r))
+        if(!HttpService.isDiscoverySet) {
+            this.http.get("http://localhost:9000/discovery").toPromise().then(r => this.setDiscovery(fn, r));
+            HttpService.isDiscoverySet = true;
+        }
+
     }
 
     setDiscovery(fn: Function, response: Response) {
