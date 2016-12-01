@@ -13,7 +13,6 @@ case class Event(name: String, description: String, recurrence: String, startTim
 
 object Event extends DatabaseModel[Event]("events") {
 
-  implicit val jodaWrites: Writes[DateTime] = Writes.jodaDateWrites("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
   implicit val format: Format[Event] = Json.format[Event]
 
   override def apply(rn: scalikejdbc.ResultName[Event])(rs: WrappedResultSet): Event = new Event(

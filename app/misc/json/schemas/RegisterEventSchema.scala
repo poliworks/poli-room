@@ -7,7 +7,7 @@ import traits.{JsonSchema, SchemaObject}
 /**
   * Created by leoiacovini on 12/1/16.
   */
-case class RegisterEventSchema(name: String, description: String, recurrence: String, scheduledBy: Long, startTime: DateTime, stopTime: DateTime) extends JsonSchema {
+case class RegisterEventSchema(name: String, description: String, recurrence: String, scheduledBy: Long, startTime: DateTime, endTime: DateTime) extends JsonSchema {
   override def toJson: JsValue = Json.toJson(this)
 }
 

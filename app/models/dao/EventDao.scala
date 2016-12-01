@@ -17,8 +17,8 @@ class EventDao {
 
   def registerNewEvent(reg: RegisterEventSchema, roomId: Long)(implicit session: DBSession): Event = {
     val id = sql"""INSERT INTO events (start_time, end_time, name, description, scheduled_by, recurrence, room_id)
-          VALUES (${reg.startTime}, ${reg.stopTime}, ${reg.name}, ${reg.description}, ${reg.scheduledBy}, ${reg.recurrence}, ${roomId})""".updateAndReturnGeneratedKey.apply()
-    new Event(reg.name, reg.description, reg.recurrence, reg.startTime, reg.stopTime, reg.scheduledBy, roomId, id)
+          VALUES (${reg.startTime}, ${reg.endTime}, ${reg.name}, ${reg.description}, ${reg.scheduledBy}, CAST(${reg.recurrence} AS recurrence), ${roomId})""".updateAndReturnGeneratedKey.apply()
+    new Event(reg.name, reg.description, reg.recurrence, reg.startTime, reg.endTime, reg.scheduledBy, roomId, id)
   }
 
 }

@@ -6,7 +6,7 @@ import traits.{JsonSchema, SchemaObject}
 /**
   * Created by leoiacovini on 12/1/16.
   */
-case class RegisterProblemSchema(name: String, description: String, reportedBy: Long, featureId: Long) extends JsonSchema {
+case class RegisterProblemSchema(name: String, description: String, reportedBy: Long, featureId: Option[Long]) extends JsonSchema {
   override def toJson: JsValue = Json.toJson(this)
 }
 
