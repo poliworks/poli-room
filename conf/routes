@@ -12,6 +12,7 @@ GET     /api/buildings/rooms               controllers.RoomController.getRoomsBy
 POST    /api/rooms                         controllers.RoomController.registerRoom
 GET     /api/rooms/:id/events              controllers.RoomController.getRoomEvents(id: Long)
 GET     /api/rooms/:id/features            controllers.RoomController.getRoomFeatures(id: Long)
+GET     /api/rooms/:id/problems            controllers.RoomController.getRoomProblems(id: Long)
 
 POST    /api/user                          controllers.UserController.registerUser
 
