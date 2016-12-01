@@ -1,5 +1,14 @@
 logs
 target
+*.log
+/front/*/*.js
+/front/*/*.map
+/front/typings
+/front/app/**/*.js
+/front/app/**/*.map
+/front/node_modules
+/front/jspm_packages
+/front/bower_components
 /.idea
 /.idea_modules
 /.classpath

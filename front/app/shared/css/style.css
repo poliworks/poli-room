@@ -1,0 +1,106 @@
+body {
+  background-color: #dfdfdf;
+}
+.input-field input {
+    border-bottom: 1px solid #FFFFFF;
+}
+
+.input-field label {
+  color: white;
+}
+
+input[type=text]:focus:not([readonly]),
+input[type=password]:focus:not([readonly]) {
+  color:white;
+  border-bottom: 1px solid #FFFFFF;
+}
+
+.brand {
+  background-color: #2D4471;
+}
+.logo {
+  filter: invert(100%);
+  display: block;
+}
+
+table.highlight>tbody>tr:hover {
+  background-color: rgba(118, 109, 176, 0.64);
+}
+.input-field input[type=text]:focus + label {
+  color: #786fb1;
+}
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #2D4471;
+  box-shadow: 0 1px 0 0 #2D4471;
+}
+.logoside-name {
+  font-size: 2.5rem;
+  display: block;
+}
+.submit-button {
+  display: block;
+  margin-left: 70%;
+}
+.side-nav {
+  top : 64px;
+}
+.side-nav .subheader {
+    cursor: initial;
+    pointer-events: none;
+    color: rgba(0,0,0,0.54);
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 48px;
+}
+.waves-effect.waves-blue .waves-ripple {
+   background-color: rgba(2, 29, 82, 0.65);
+}
+.main-space {
+  position: absolute;
+  top: 64px;
+  bottom: 0;
+  right: 0;
+  left: 240px;
+  z-index: -1;
+}
+.main-container {
+  margin-left: 240px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 90%;
+}
+.title {
+  color: rgba(40,40,40,0.4);
+  margin-bottom: 0;
+}
+.subtitle {
+  color: rgba(40,40,40,0.15);
+  margin-top: 0;
+}
+.side-nav a,
+.side-nav.fixed a,
+.room {
+  padding: 0 60px;
+}
+.collapsible-header {
+  font-size: 1.2rem;
+}
+
+.card .card-image img{
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  height: 80%;
+  width: 80%;
+  opacity: .5;
+}
+.feature-text {
+  text-align: center;
+}
+.main-container .row {
+  margin-bottom: 0;
+}
+
+nav {
+  position: fixed;
+}

@@ -1,0 +1,41 @@
+.input-field input {
+    border-bottom: 1px solid #FFFFFF;
+}
+
+input[type=text]:focus:not([readonly]),
+input[type=password]:focus:not([readonly]) {
+  color: black;
+  border-bottom: 1px solid #FFFFFF;
+}
+
+.brand {
+  background-color: #786fb1;
+}
+
+table.highlight>tbody>tr:hover {
+  background-color: rgba(118, 109, 176, 0.64);
+}
+.input-field input[type=text]:focus + label {
+  color: #786fb1;
+}
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #786fb1;
+  box-shadow: 0 1px 0 0 #786fb1;
+}
+.selected {
+  background-color: rgba(118, 109, 176, 0.44);
+}
+.permission {
+  line-height: 0;
+}
+.collapsed {
+  display: none;
+}
+.opend {
+  display: block;
+}
+.edit_integration,
+.delete_integration {
+  padding-left: 10px;
+  padding-right: 10px;
+}

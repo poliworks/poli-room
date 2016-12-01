@@ -1,0 +1,38 @@
+nav div ul{
+  height: 64px;
+}
+
+
+.fc-unthemed .fc-content,
+ .fc-unthemed .fc-divider,
+  .fc-unthemed .fc-popover,
+   .fc-unthemed .fc-row,
+    .fc-unthemed tbody,
+     .fc-unthemed td,
+      .fc-unthemed th,
+       .fc-unthemed thead {
+         border-color: rgba(0,0,0, 0.05);
+}
+nav {
+  margin-bottom: 10px;
+}
+
+.chip {
+  padding: 0 8px;
+}
+.chip i.material-icons {
+  padding-left: 0;
+}
+.tinier {
+  font-size: 1rem;
+}
+
+.row {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin:auto;
+}
+
+.draggable {
+  height: 30px;
+}
