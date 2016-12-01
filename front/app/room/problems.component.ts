@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {Router, Params, NavigationExtras, ActivatedRoute} from '@angular/router';
 import {HttpService} from "../shared/http.service";
 import {Response} from "@angular/http";
@@ -23,18 +23,26 @@ import {Response} from "@angular/http";
       </div> <!-- ends col MANUTENÇÃO -->
     `
 })
-export class ProblemsComponent implements OnInit {
+export class ProblemsComponent implements OnInit, OnChanges {
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.getProblems()
+    }
+
     problems : Object[] = [];
 
-    currentRoomId: number;
+    @Input() roomId: number;
 
     constructor (private http: HttpService, private route: ActivatedRoute, private router: Router) {}
 
     ngOnInit() {
-        this.currentRoomId = this.route.params["id"];
+        this.getProblems();
+    }
+
+    getProblems() {
         this.http.req({url: "room_problems",
             method: "get",
-            replaceMap: {id: 1},
+            replaceMap: {id: this.roomId},
             handler: this.setProblems.bind(this)})
     }
 
