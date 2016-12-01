@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Router,
     NavigationExtras } from '@angular/router';
+import {HttpService} from "../shared/http.service";
+import {Response} from "@angular/http";
 declare var moment : any;
 @Component({
     selector: `room-next-activity`,
@@ -24,33 +26,28 @@ declare var moment : any;
      </div>
     `
 })
-export class NextActivityComponent {
-    events : Object[] = [
-        {
-            "name": "Evento 1",
-            "description": "Um evento qualquer",
-            "recurrence": "weekly",
-            "startTime": "2016-11-30T13:36:12.000-0200",
-            "endTime": "2016-11-30T14:36:15.721-0200",
-            "scheduledBy": 1,
-            "roomId": 1,
-            "id": 3
-        },
-        {
-            "name": "Evento 1",
-            "description": "Um evento qualquer",
-            "recurrence": "weekly",
-            "startTime": "2016-11-30T13:36:12.000-0200",
-            "endTime": "2016-11-30T14:36:15.721-0200",
-            "scheduledBy": 1,
-            "roomId": 3,
-            "id": 2
-        }
-    ]
+export class NextActivityComponent implements OnInit {
+
+    constructor (private http: HttpService) {}
+
+    ngOnInit(): void {
+        this.http.req({url: "room_events",
+                       method: "get",
+                       replaceMap: {id: 1},
+                       handler: this.setEvents})
+    }
+
+    events : Object[] = [];
+
     getFormattedTime(utc: string) : string {
         return moment(utc).format("hh:mm")
     }
     getFormattedDate(utc: string): string {
         return moment(utc).format("DD/MM")
+    }
+
+    private setEvents(response: Response) {
+        this.events = response.json();
+        console.log(response)
     }
 }

@@ -65,8 +65,10 @@ export class HttpService {
             str =  HttpService.discovery[reqMap.url]["url"];
             console.log("Achei: " + HttpService.discovery[reqMap.url].url)
         }
+        console.log(reqMap.replaceMap);
         for (let key in reqMap.replaceMap) {
-            str = str.replace("/:" + key + "/g", reqMap.replaceMap[key])
+            str = str.replace(new RegExp(`:${key}`), reqMap.replaceMap[key]);
+            console.log("STR: " + str);
         }
         return str;
     }
@@ -79,7 +81,7 @@ export class HttpService {
 export interface ReqMap {
     url: string;
     method: string;
-    replaceMap?: Map<string, any>;
+    replaceMap?: Object;
     body?: any;
     handler: (value: Response) => any;
 }
