@@ -27,7 +27,7 @@ CREATE TABLE features (
   name VARCHAR(255) NOT NULL,
   description VARCHAR(255) NOT NULL,
   quantity INT NOT NULL,
-  css_icon_id INT NULL
+  img VARCHAR(255) NULL
 );
 
 CREATE TABLE rooms_features (
@@ -64,13 +64,13 @@ INSERT INTO rooms (id, name, building, department, size) VALUES (4, 'sala3', 'le
 INSERT INTO rooms (id, name, building, department, size) VALUES (5, 'Inserido', 'Nova Sala', 'PCS', 30);
 INSERT INTO users (id, email, encrypted_password, name, user_type) VALUES (1, 'teste@mail.com', '1234', 'teste', 'aluno');
 INSERT INTO events (id, start_time, end_time, name, description, scheduled_by, recurrence, room_id) VALUES (1, '2016-11-30 13:36:12.000000', '2016-11-30 14:36:15.721000', 'Evento 1', 'Um evento qualquer', 1, 'weekly', 1);
-INSERT INTO features (id, name, description, quantity, css_icon_id) VALUES (1, 'quadro branco', 'desc', 1, 1);
-INSERT INTO features (id, name, description, quantity, css_icon_id) VALUES (2, 'quadro negro', 'desc', 1, 1);
-INSERT INTO features (id, name, description, quantity, css_icon_id) VALUES (3, 'ar condicionado', 'desc', 1, 1);
-INSERT INTO features (id, name, description, quantity, css_icon_id) VALUES (4, 'ventilador', 'desc', 1, 1);
-INSERT INTO features (id, name, description, quantity, css_icon_id) VALUES (5, 'projetor', 'desc', 1, 1);
-INSERT INTO features (id, name, description, quantity, css_icon_id) VALUES (6, 'caixa de som', 'desc', 1, 1);
-INSERT INTO features (id, name, description, quantity, css_icon_id) VALUES (7, 'luz', 'desc', 1, 1);
+INSERT INTO features (id, name, description, quantity, img) VALUES (1, 'quadro branco', 'desc', 1, 'whiteboard.png');
+INSERT INTO features (id, name, description, quantity, img) VALUES (2, 'quadro negro', 'desc', 1, 'whiteboard.png');
+INSERT INTO features (id, name, description, quantity, img) VALUES (3, 'ar condicionado', 'desc', 1, 'whiteboard.png');
+INSERT INTO features (id, name, description, quantity, img) VALUES (4, 'ventilador', 'desc', 1, 'whiteboard.png');
+INSERT INTO features (id, name, description, quantity, img) VALUES (5, 'projetor', 'desc', 1, 'whiteboard.png');
+INSERT INTO features (id, name, description, quantity, img) VALUES (6, 'caixa de som', 'desc', 1, 'whiteboard.png');
+INSERT INTO features (id, name, description, quantity, img) VALUES (7, 'luz', 'desc', 1, 'whiteboard.png');
 INSERT INTO rooms_features (room_id, features_id) VALUES (1, 1);
 INSERT INTO rooms_features (room_id, features_id) VALUES (1, 2);
 INSERT INTO rooms_features (room_id, features_id) VALUES (1, 3);
