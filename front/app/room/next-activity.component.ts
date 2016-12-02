@@ -50,6 +50,7 @@ export class NextActivityComponent implements OnInit, OnChanges {
     }
 
     @Input() roomId: number;
+    @Input() changes: number;
 
     events : Object[] = [];
 

@@ -15,7 +15,7 @@ import 'rxjs/add/operator/switchMap';
             <br/>
 
             <div class="row">
-              <room-next-activity [roomId]="roomId"></room-next-activity>
+              <room-next-activity [roomId]="roomId" [changes]="changes"></room-next-activity>
               <room-problems [roomId]="roomId"></room-problems>
             </div> <!-- end row of MANUTENÇÃO and PROXIMAS ATIVIDADES -->
             <div class="row">
@@ -31,13 +31,15 @@ import 'rxjs/add/operator/switchMap';
 export class RoomContentComponent implements OnInit {
 
     @Output() update = new EventEmitter<Response>();
+    changes: number = 0;
+
 
     constructor(private http: HttpService, private route: ActivatedRoute, private router: Router) {
     }
 
     onNewActivityCreation(response: Response) {
         console.log("EMITIU");
-        window.location.reload();
+        this.changes++;
         this.update.emit(response);
         this.getRoom();
     }
