@@ -41,9 +41,8 @@ export class SelectFeatureComponent implements OnChanges {
     getFeatures() {
 
         this.http.req({url: "room_features",
-            method: "get",
-            replaceMap: {id: this.roomId},
-            handler: this.setFeatures.bind(this)})
+                       replaceMap: {id: this.roomId},
+                       handler: this.setFeatures.bind(this)})
     }
 
     setFeatures(response: Response) {

@@ -24,9 +24,9 @@ declare var jQuery: any;
                     <label for="password" class="white-text">Password</label>
                   </div>
                 </div>
-                <button id="loginSubmit" class="btn waves-effect waves-light indigo lighten-1 submit-button" type="submit" name="action">Submit
+                <a id="loginSubmit" class="btn waves-effect waves-light indigo lighten-1 submit-button" href="/room/3">Submit
                   <i class="material-icons right">send</i>
-                </button>
+                </a>
               </div>
             </div>
           </div>

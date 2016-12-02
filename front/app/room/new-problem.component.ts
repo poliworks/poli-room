@@ -62,14 +62,14 @@ export class NewProblemComponent implements OnInit {
 
 
     registerProblem(problem  : any){
-        let reqMap = {url: "register_events", method: "post", body: problem, handler: this.emitNewProblemCreation.bind(this)};
+        let reqMap = {url: "register_problem", replaceMap: {id: this.roomId}, body: problem, handler: this.emitNewProblemCreation.bind(this)};
         this.http.req(reqMap);
     }
 }
 export class Problem {
     name: string;
     description: string;
-    reportedBy: number;
+    reportedBy: number = 1;
     reportedAt: number;
     featureId: number;
 }

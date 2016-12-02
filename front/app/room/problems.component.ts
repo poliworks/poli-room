@@ -25,7 +25,7 @@ import {Response} from "@angular/http";
     `
 })
 export class ProblemsComponent implements OnInit, OnChanges {
-
+    @Input() changes: number;
     ngOnChanges(changes: SimpleChanges): void {
         this.getProblems()
     }

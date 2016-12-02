@@ -19,6 +19,7 @@ import {NewProblemComponent} from "./room/new-problem.component";
 import {SelectFeatureComponent} from "./room/select-feature.component";
 
 const appRoutes : Routes = [
+    {path: "", component: LoginFormComponent, pathMatch: "full"},
     {path: "login", component: LoginFormComponent},
     {path: "room/:id", component: RoomComponent}
 ];
