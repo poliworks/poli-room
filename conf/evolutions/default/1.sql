@@ -61,7 +61,8 @@ INSERT INTO rooms (id, name, building, department, size) VALUES (1, 'teste', 'fe
 INSERT INTO rooms (id, name, building, department, size) VALUES (2, 'outra', 'fedido', 'nanan', 20);
 INSERT INTO rooms (id, name, building, department, size) VALUES (3, 'sala2', 'lele', 'baba', 20);
 INSERT INTO rooms (id, name, building, department, size) VALUES (4, 'sala3', 'lele', 'bubu', 30);
-INSERT INTO rooms (id, name, building, department, size) VALUES (5, 'Inserido', 'Nova Sala', 'PCS', 30);
+INSERT INTO rooms (id, name, building, department, size) VALUES (5, 'Inserido', 'Predio', 'PCS', 30);
+INSERT INTO rooms (id, name, building, department, size) VALUES (6, 'SemFeature', 'Predio', 'PCS', 40);
 INSERT INTO users (id, email, encrypted_password, name, user_type) VALUES (1, 'teste@mail.com', '1234', 'teste', 'aluno');
 INSERT INTO events (id, start_time, end_time, name, description, scheduled_by, recurrence, room_id) VALUES (1, '2016-11-30 13:36:12.000000', '2016-11-30 14:36:15.721000', 'Evento 1', 'Um evento qualquer', 1, 'weekly', 1);
 INSERT INTO features (id, name, description, quantity, img) VALUES (1, 'quadro branco', 'desc', 1, 'whiteboard.png');
