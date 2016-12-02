@@ -2,13 +2,13 @@ package controllers
 
 import javax.inject.Inject
 
-import components.TokenService
 import misc.exceptions.ForbiddenException
 import misc.json.schemas.{LoginUserSchema, RegisterUserSchema}
 import models.User
+import models.dao.UserDao
 import play.api.Logger
-import play.api.libs.json.{JsObject, Json}
-import play.api.mvc.{Action, Controller}
+import play.api.mvc._
+import scalikejdbc._
 import traits.{ITokenService, Interceptors}
 
 class UserController @Inject()(tokenService: ITokenService) extends Controller with Interceptors {
@@ -25,6 +25,12 @@ class UserController @Inject()(tokenService: ITokenService) extends Controller w
       case Some(u) => Ok(u.getJsonUserWithToken(tokenService))
       case None => throw new ForbiddenException("Incorrect email or password")
     }
+  }
+
+  def getUserFromToken = AuthAction(tokenService)(null) { request =>
+    val userId = request.userId;
+    val user = DB readOnly { implicit session => new UserDao().findUserById(userId).get }
+    Ok(user.getJsonUserWithToken(tokenService, request.rawToken.get))
   }
 
 

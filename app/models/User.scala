@@ -11,9 +11,14 @@ import play.api.libs.json._
 case class User(name: String, email: String, encryptedPassword: String, userType: String, id: Long = 0L) {
   def checkPassword(password: String): Boolean = password.isBcrypted(this.encryptedPassword)
 
-  def getJsonUserWithToken(tokenService: ITokenService): JsValue = {
-    val token = tokenService.create(this.id, this.userType)
-    (Json.toJson(this).as[JsObject] - "encryptedPassword") + ("token", JsString(token))
+  def getJsonUserWithToken(tokenService: ITokenService, token: String = null): JsValue = {
+    val genToken = tokenService.create(this.id, this.userType)
+    val baseUser = Json.toJson(this).as[JsObject] - "encryptedPassword"
+    if (token == null) {
+      baseUser + ("token", JsString(genToken))
+    } else {
+      baseUser+ ("token", JsString(token))
+    }
   }
 }
 

@@ -1,10 +1,13 @@
 import {Component, OnInit}        from '@angular/core';
-import { Router,
-    NavigationExtras } from '@angular/router';
+import {
+    Router,
+    NavigationExtras, ActivatedRoute, Route
+} from '@angular/router';
 import {HttpService} from "../shared/http.service";
 import {Response, Http} from "@angular/http";
 
 declare var jQuery: any;
+declare var Materialize: any;
 
 @Component({
     template: `
@@ -38,11 +41,20 @@ declare var jQuery: any;
       </div>
     `
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit {
+
+    ngOnInit(): void {
+        let forbidden = this.route.snapshot.queryParams["forbidden"];
+        console.log(forbidden);
+        if (forbidden) {
+            Materialize.toast("Acessor negado, login obrigatorio", 4000);
+        }
+    }
+
     email: string;
     password: string;
 
-    constructor (private http: HttpService, private router: Router) {}
+    constructor (private http: HttpService, private router: Router, private route: ActivatedRoute) {}
     login() {
         this.http.req({url: "login_user", body: {email: this.email, password: this.password}, handler: this.makeLogin.bind(this)})
     }

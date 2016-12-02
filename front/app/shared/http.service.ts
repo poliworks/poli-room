@@ -1,7 +1,7 @@
 import { Injectable }     from '@angular/core';
 import {Http, Response, Headers, RequestOptions, RequestMethod, Request} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
-import { Router } from '@angular/router'
+import {Router, NavigationExtras} from '@angular/router'
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -52,8 +52,10 @@ export class HttpService {
 
     private catchError(reason: Response) {
         if (reason.status == 403) {
-            Materialize.toast("Acessor negado, pau no seu cu", 4000);
-            this.router.navigate(["/login/"])
+            let navigationExtras: NavigationExtras = {
+                queryParams: { 'forbidden': true },
+            };
+            this.router.navigate(["/login"], navigationExtras);
         } else {
             Materialize.toast(reason.status + "  " + reason.json()["message"], 4000);
         }
@@ -107,12 +109,27 @@ export class HttpService {
     }
 
     getTokenFromSession(): string {
+        let userToken = localStorage.getItem("user_token");
+        if (userToken) {
+            HttpService.user = JSON.parse(localStorage.getItem("current_user"))
+        }
         return localStorage.getItem("user_token")
     }
 
     static setUser(user: User): void {
         HttpService.user = user;
         localStorage.setItem("user_token", user.token)
+        localStorage.setItem("current_usert", user.toString())
+    }
+
+    static destroySession(): void {
+        HttpService.user = null;
+        localStorage.clear();
+    }
+
+    static isLoggedIn(): boolean {
+        console.log(HttpService.user != null)
+        return HttpService.user != null
     }
 
 }
