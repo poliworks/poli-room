@@ -3,6 +3,7 @@ import { Router,
     NavigationExtras } from '@angular/router';
 import {Response} from "@angular/http";
 import {HttpService} from "../shared/http.service";
+import {Room} from "./new-room.component";
 declare var jQuery : any;
 
 @Component({
@@ -10,7 +11,7 @@ declare var jQuery : any;
     template: `
     <ul class="side-nav fixed collapsible" data-collapsible="accordion">
         <li>
-            <a class="modal-trigger waves-effect waves-green collapsible-header" href="#new-room-modal">Nova Sala</a>
+            <a class="modal-trigger waves-effect waves-green collapsible-header" (click)="newRoomOpenModal()" href="#new-room-modal">Nova Sala</a>
         </li>
         <li *ngFor="let building of getBuildings()">
           <div class="waves-effect waves-blue collapsible-header">{{building}}</div>
@@ -21,14 +22,24 @@ declare var jQuery : any;
           </div>
         </li>
       </ul>
+      <new-room-modal (onNewRoomCreation)="onNewRoomCreation($event);"></new-room-modal>
     `,
     providers: [HttpService]
 })
 export class SidenavComponent implements OnInit {
 
     buildingsRooms : Object = {};
-
-    getRoomsPerBuilding(response: Response) {
+    onNewRoomCreation(room : any) {
+        console.log("newRoomWasCreated")
+        console.log(room);
+        //this.buildingsRooms[room.building].push(room);
+        this.getRoomsPerBuilding();
+    }
+    newRoomOpenModal() {
+        console.log("nova sala");
+        jQuery('select').material_select();
+    }
+    setRoomsPerBuilding(response: Response) {
         console.group("RESPOSTA");
         console.log(response);
         console.log(response.json());
@@ -47,10 +58,13 @@ export class SidenavComponent implements OnInit {
 
     constructor(private http: HttpService) {}
 
+    getRoomsPerBuilding(){
+        let reqMap = {url: "rooms_per_building", handler: this.setRoomsPerBuilding.bind(this)};
+        this.http.req(reqMap);
+    }
     ngOnInit(): void {
         console.log("Requesting to get rooms");
-        this.http.req({url: "rooms_per_building",
-                       handler: this.getRoomsPerBuilding.bind(this)});
+        this.getRoomsPerBuilding();
         jQuery('.collapsible').collapsible();
     }
 }

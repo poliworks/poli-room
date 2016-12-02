@@ -1,10 +1,15 @@
-import {Component, OnInit, ChangeDetectorRef, Input, Output, OnChanges, SimpleChanges} from '@angular/core';
+import {
+    Component, OnInit, ChangeDetectorRef, Input, Output, OnChanges, SimpleChanges,
+    EventEmitter
+} from '@angular/core';
 import { Router,
     NavigationExtras } from '@angular/router';
 import {HttpService} from "../shared/http.service";
 import {Response} from "@angular/http";
 import {log} from "util";
+import {Activity} from "./new-activity.component";
 declare var moment : any;
+declare var jQuery : any;
 @Component({
     selector: `room-next-activity`,
     template: `
@@ -13,6 +18,8 @@ declare var moment : any;
         <div class="card">
           <div class="card-content">
             <span class="card-title">Próximas Atitivades</span>
+            <!--<button data-target="new-activity-modal" class="right btn">+</button>-->
+            <a (click)="openNewActivityModal()" class="modal-trigger waves-effect waves-light btn right" href="#new-activity-modal">+</a>
             <ul class="collection">
               <li *ngFor="let event of this.events;" class="collection-item">
                 <span class="title">{{event.name}} - {{getFormattedDate(event.startTime)}}</span>
@@ -29,7 +36,9 @@ declare var moment : any;
 })
 export class NextActivityComponent implements OnInit, OnChanges {
 
-
+    openNewActivityModal() {
+        jQuery('select').material_select();
+    }
     ngOnChanges(changes: SimpleChanges): void {
         this.getEvents();
     }
@@ -41,6 +50,7 @@ export class NextActivityComponent implements OnInit, OnChanges {
     }
 
     @Input() roomId: number;
+    @Input() changes: number;
 
     events : Object[] = [];
 
@@ -49,6 +59,15 @@ export class NextActivityComponent implements OnInit, OnChanges {
     }
     getFormattedDate(utc: string): string {
         return moment(utc).format("DD/MM")
+    }
+
+    update(response: Response) {
+        console.log("UPDATING")
+        this.getEvents()
+    }
+
+    onNewActivityCreation(response: Response) {
+        this.getEvents()
     }
 
     private getEvents() {

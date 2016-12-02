@@ -6,7 +6,6 @@ import { Router,
     template: `
     <side-nav></side-nav>
     <room-content></room-content>
-    <new-room-modal></new-room-modal>
     `
 })
 export class RoomComponent { }

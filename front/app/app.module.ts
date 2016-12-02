@@ -2,6 +2,7 @@ import {NgModule, APP_INITIALIZER, OnInit} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import {HttpModule, Response}    from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from "./login/login-form.component";
@@ -13,8 +14,9 @@ import {NextActivityComponent} from "./room/next-activity.component";
 import {ProblemsComponent} from "./room/problems.component";
 import {FeaturesComponent} from "./room/features.component";
 import {NewRoomComponent} from "./room/new-room.component";
-import {HttpService, DiscoveryEntry} from "./shared/http.service";
-import {isBoolean} from "util";
+import {NewActivityComponent} from "./room/new-activity.component";
+import {NewProblemComponent} from "./room/new-problem.component";
+import {SelectFeatureComponent} from "./room/select-feature.component";
 
 const appRoutes : Routes = [
     {path: "login", component: LoginFormComponent},
@@ -22,7 +24,7 @@ const appRoutes : Routes = [
 ];
 
 @NgModule({
-    imports: [ BrowserModule, RouterModule.forRoot(appRoutes), HttpModule],
+    imports: [ BrowserModule, FormsModule, RouterModule.forRoot(appRoutes), HttpModule],
     declarations: [
         AppComponent,
         LoginFormComponent,
@@ -33,7 +35,10 @@ const appRoutes : Routes = [
         NextActivityComponent,
         ProblemsComponent,
         FeaturesComponent,
-        NewRoomComponent
+        NewRoomComponent,
+        NewActivityComponent,
+        NewProblemComponent,
+        SelectFeatureComponent
     ],
     bootstrap:    [ AppComponent ]
 })
