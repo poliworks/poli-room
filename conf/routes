@@ -16,6 +16,7 @@ POST    /api/rooms/:id/events              controllers.RoomController.registerNe
 DELETE  /api/events/:id                    controllers.EventController.removeEvent(id: Long)
 
 GET     /api/rooms/:id/features            controllers.RoomController.getRoomFeatures(id: Long)
+GET     /api/features                      controllers.FeatureController.getAllFeatures()
 POST    /api/rooms/:id/features            controllers.RoomController.registerNewFeature(id: Long)
 DELETE  /api/features/:id                  controllers.FeatureController.removeFeature(id: Long)
 

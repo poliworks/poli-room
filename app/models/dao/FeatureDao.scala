@@ -26,4 +26,8 @@ class FeatureDao {
     sql"""DELETE FROM features WHERE id = ${featureId}""".executeUpdate.apply()
   }
 
+  def getAllFeatures(implicit session: DBSession): List[Feature] = {
+    sql"SELECT * FROM features".map(Feature.apply).list.apply()
+  }
+
 }
