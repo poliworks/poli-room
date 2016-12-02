@@ -5,7 +5,7 @@ import scalikejdbc._
 import traits.DatabaseModel
 import com.github.t3hnar.bcrypt._
 import misc.exceptions.BadRequestException
-import misc.json.schemas.RegisterUserSchema
+import misc.json.schemas.{LoginUserSchema, RegisterUserSchema}
 import play.api.libs.json.{Format, Json}
 
 case class User(name: String, email: String, encryptedPassword: String, userType: String, id: Long = 0L) {
@@ -40,8 +40,8 @@ object User extends DatabaseModel[User]("users") {
     User.register(userToRegister, registerUserSchema.password)
   }
 
-  def login(email: String, password: String): Option[User] = DB readOnly { implicit session =>
-    new UserDao().findUserByEmail(email).filter(_.checkPassword(password))
+  def login(login: LoginUserSchema): Option[User] = DB readOnly { implicit session =>
+    new UserDao().findUserByEmail(login.email).filter(_.checkPassword(login.password))
   }
 
 }

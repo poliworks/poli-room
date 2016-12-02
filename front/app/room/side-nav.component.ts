@@ -59,7 +59,7 @@ export class SidenavComponent implements OnInit {
     constructor(private http: HttpService) {}
 
     getRoomsPerBuilding(){
-        let reqMap = {url: "rooms_per_building", method: "get", handler: this.setRoomsPerBuilding.bind(this)};
+        let reqMap = {url: "rooms_per_building", handler: this.setRoomsPerBuilding.bind(this)};
         this.http.req(reqMap);
     }
     ngOnInit(): void {

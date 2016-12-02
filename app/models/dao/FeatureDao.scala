@@ -11,8 +11,8 @@ class FeatureDao {
 
   def getFeatureForRoom(roomId: Long)(implicit session: DBSession): List[Feature] = {
     sql"""SELECT f.* FROM features AS f
-          LEFT JOIN rooms_features AS rf ON rf.features_id = f.id
-          RIGHT JOIN rooms AS r ON rf.room_id = r.id
+          JOIN rooms_features AS rf ON rf.features_id = f.id
+          JOIN rooms AS r ON rf.room_id = r.id
           WHERE r.id = ${roomId}""".map(Feature.apply).list.apply()
   }
 
@@ -24,6 +24,10 @@ class FeatureDao {
 
   def removeFeature(featureId: Long)(implicit session: DBSession): Unit = {
     sql"""DELETE FROM features WHERE id = ${featureId}""".executeUpdate.apply()
+  }
+
+  def getAllFeatures(implicit session: DBSession): List[Feature] = {
+    sql"SELECT * FROM features".map(Feature.apply).list.apply()
   }
 
 }

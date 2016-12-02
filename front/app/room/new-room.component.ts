@@ -2,6 +2,7 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { Router,
     NavigationExtras } from '@angular/router';
 import {HttpService} from "../shared/http.service";
+import {Response} from "@angular/http";
 declare var jQuery : any;
 @Component({
     selector: `new-room-modal`,
@@ -15,11 +16,11 @@ declare var jQuery : any;
                     <div class="row">
                         <div class="input-field col s6">
                           <input id="room_name" type="text" class="validate" [(ngModel)]="model.name" name="name">
-                          <label for="room_name">First Name</label>
+                          <label for="room_name">Name</label>
                         </div>
                         <div class="input-field col s6">
                             <select id="nr-select-building" name="building">
-                                <option *ngFor="let b of getBuildings()" [ngValue]="b">{{b}}</option>
+                                <option *ngFor="let b of buildings" [ngValue]="b">{{b}}</option>
                             </select>
                         <label>Prédio</label>
                         </div>
@@ -39,9 +40,12 @@ export class NewRoomComponent implements OnInit {
 
     model : Room = new Room();
 
+    buildings: string[];
+
     constructor(private http: HttpService) {}
     ngOnInit() {
         jQuery('.modal-trigger').leanModal();
+        this.getBuildings();
         this.model.building = "";
         this.model.name = "";
     }
@@ -54,7 +58,6 @@ export class NewRoomComponent implements OnInit {
         this.onNewRoomCreation.emit(room);
     }
 
-
     registerRoom(room : any){
         let r = {
             "name": room.name,
@@ -65,8 +68,13 @@ export class NewRoomComponent implements OnInit {
         let reqMap = {url: "register_room", method: "post", body: r, handler: this.emitNewRoomCreation.bind(this)};
         this.http.req(reqMap);
     }
+
+    setBuldings(response: Response) {
+        this.buildings = response.json()
+    }
+
     getBuildings() {
-        return ["Prédio da Elétrica", "Prédio da Civil"];
+        this.http.req({url: "get_buildings", handler: this.setBuldings.bind(this)})
     }
 }
 export class Room {
