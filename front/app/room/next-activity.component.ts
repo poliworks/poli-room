@@ -5,6 +5,7 @@ import {HttpService} from "../shared/http.service";
 import {Response} from "@angular/http";
 import {log} from "util";
 declare var moment : any;
+declare var jQuery : any;
 @Component({
     selector: `room-next-activity`,
     template: `
@@ -13,6 +14,8 @@ declare var moment : any;
         <div class="card">
           <div class="card-content">
             <span class="card-title">Próximas Atitivades</span>
+            <!--<button data-target="new-activity-modal" class="right btn">+</button>-->
+            <a (click)="openNewActivityModal()" class="modal-trigger waves-effect waves-light btn right" href="#new-activity-modal">Modal</a>
             <ul class="collection">
               <li *ngFor="let event of this.events;" class="collection-item">
                 <span class="title">{{event.name}} - {{getFormattedDate(event.startTime)}}</span>
@@ -30,6 +33,9 @@ declare var moment : any;
 export class NextActivityComponent implements OnInit, OnChanges {
 
 
+    openNewActivityModal() {
+        jQuery('select').material_select();
+    }
     ngOnChanges(changes: SimpleChanges): void {
         this.getEvents();
     }

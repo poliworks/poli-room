@@ -29,7 +29,7 @@ declare var jQuery : any;
 export class SidenavComponent implements OnInit {
 
     buildingsRooms : Object = {};
-    onNewRoomCreation(room) {
+    onNewRoomCreation(room : any) {
         console.log("newRoomWasCreated")
         console.log(room);
         //this.buildingsRooms[room.building].push(room);

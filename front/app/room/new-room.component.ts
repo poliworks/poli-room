@@ -50,12 +50,12 @@ export class NewRoomComponent implements OnInit {
         console.log(this.model);
         this.registerRoom(this.model);
     }
-    emitNewRoomCreation(room) {
+    emitNewRoomCreation(room : any) {
         this.onNewRoomCreation.emit(room);
     }
 
 
-    registerRoom(room){
+    registerRoom(room : any){
         let r = {
             "name": room.name,
             "building": room.building,

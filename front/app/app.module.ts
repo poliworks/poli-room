@@ -14,8 +14,7 @@ import {NextActivityComponent} from "./room/next-activity.component";
 import {ProblemsComponent} from "./room/problems.component";
 import {FeaturesComponent} from "./room/features.component";
 import {NewRoomComponent} from "./room/new-room.component";
-import {HttpService, DiscoveryEntry} from "./shared/http.service";
-import {isBoolean} from "util";
+import {NewActivityComponent} from "./room/new-activity.component";
 
 const appRoutes : Routes = [
     {path: "login", component: LoginFormComponent},
@@ -34,7 +33,8 @@ const appRoutes : Routes = [
         NextActivityComponent,
         ProblemsComponent,
         FeaturesComponent,
-        NewRoomComponent
+        NewRoomComponent,
+        NewActivityComponent
     ],
     bootstrap:    [ AppComponent ]
 })
