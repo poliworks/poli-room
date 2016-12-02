@@ -2,6 +2,7 @@ import {NgModule, APP_INITIALIZER, OnInit} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import {HttpModule, Response}    from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from "./login/login-form.component";
@@ -22,7 +23,7 @@ const appRoutes : Routes = [
 ];
 
 @NgModule({
-    imports: [ BrowserModule, RouterModule.forRoot(appRoutes), HttpModule],
+    imports: [ BrowserModule, FormsModule, RouterModule.forRoot(appRoutes), HttpModule],
     declarations: [
         AppComponent,
         LoginFormComponent,

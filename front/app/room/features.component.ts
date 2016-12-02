@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, Input, SimpleChanges, OnChanges} from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
+import {HttpService} from "../shared/http.service";
+import {Response} from "@angular/http";
 
 @Component({
     selector: `room-features`,
@@ -16,34 +18,28 @@ import { Router, NavigationExtras } from '@angular/router';
               </div>
     `
 })
-export class FeaturesComponent {
+export class FeaturesComponent implements OnChanges {
 
-    getFeatures(): Object[] {
+    @Input() roomId: number;
 
+    features : Object[] = [];
 
-        return []
+    constructor (private http: HttpService) { }
+
+    getFeatures() {
+
+        this.http.req({url: "room_features",
+            method: "get",
+            replaceMap: {id: this.roomId},
+            handler: this.setFeatures.bind(this)})
     }
 
-    features : Object[] = [
-        {
-            "name": "quadro branco",
-            "img": "whiteboard.png",
-            "id": 1
-        },
-        {
-            "name": "quadro negro",
-            "img": "blackboard.png",
-            "id": 2
-        },
-        {
-            "name": "ar condicionado",
-            "img": "ac.png",
-            "id": 3
-        },
-        {
-            "name": "caixa de som",
-            "img": "sound.png",
-            "id": 6
-        }
-    ]
+    setFeatures(response: Response) {
+        this.features = response.json();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.getFeatures();
+    }
+
 }

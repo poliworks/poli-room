@@ -19,7 +19,7 @@ import 'rxjs/add/operator/switchMap';
               <room-problems [roomId]="roomId"></room-problems>
             </div> <!-- end row of MANUTENÇÃO and PROXIMAS ATIVIDADES -->
             <div class="row">
-              <room-features></room-features>
+              <room-features [roomId]="roomId"></room-features>
             </div> <!-- FEATURES ROW -->
           </div> <!-- end main row -->
 

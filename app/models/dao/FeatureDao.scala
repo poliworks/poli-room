@@ -17,7 +17,7 @@ class FeatureDao {
   }
 
   def registerNewFeature(reg: RegisterFeatureSchema, roomId: Long)(implicit session: DBSession): Feature = {
-    val featureId = sql"""INSERT INTO features (name, description, img, quantity) VALUES (${reg.name}, ${reg.description}, ${reg.img}, ${reg.quantity})""".updateAndReturnGeneratedKey.apply()
+    val featureId = sql"""INSERT INTO features (name, description, quantity, img) VALUES (${reg.name}, ${reg.description}, ${reg.quantity}, ${reg.img})""".updateAndReturnGeneratedKey.apply()
     sql"""INSERT INTO rooms_features (room_id, features_id) VALUES (${roomId}, ${featureId})""".update.apply()
     new Feature(reg.name, reg.description, reg.quantity, reg.img, featureId)
   }
