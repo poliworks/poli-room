@@ -1,18 +1,23 @@
 package controllers
 
+import javax.inject.Inject
+
 import misc.exceptions.{BadRequestException, NotFoundException}
 import misc.json.schemas.{RegisterEventSchema, RegisterFeatureSchema, RegisterProblemSchema, RegisterRoomSchema}
 import models.{Event, Feature, Problem, Room}
 import models.dao.{EventDao, FeatureDao, ProblemDao, RoomDao}
+import play.Configuration
 import play.api.libs.json._
 import play.api.mvc.{Action, Controller}
 import scalikejdbc._
 import traits.Interceptors
+import play.api.libs.json.DefaultFormat
+
 
 /**
   * Created by leoiacovini on 11/30/16.
   */
-class RoomController extends Controller with Interceptors {
+class RoomController @Inject()(configuration: Configuration) extends Controller with Interceptors {
 
   def getRooms(building: String) = Action {
     val rooms: List[Room] = DB readOnly { implicit session => new RoomDao().findAllFromBuilding(building) }
@@ -74,6 +79,11 @@ class RoomController extends Controller with Interceptors {
   def removeRoom(roomId: Long) = Action {
     DB localTx { implicit session => new RoomDao().removeRoom(roomId) }
     Ok
+  }
+
+  def getBuildings() = Action {
+    val buildings: Array[String] = configuration.getStringList("buildings").toArray(Array[String]())
+    Ok(Json.toJson(buildings))
   }
 
 }

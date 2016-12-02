@@ -5,10 +5,11 @@
 GET     /discovery                         controllers.MainController.getDiscovery
 
 GET     /api/rooms/:id                     controllers.RoomController.getRoom(id: Long)
+GET     /api/buildings                     controllers.RoomController.getBuildings()
 GET     /api/buildings/:building/rooms     controllers.RoomController.getRooms(building)
 GET     /api/buildings/rooms               controllers.RoomController.getRoomsByBuilding
 POST    /api/rooms                         controllers.RoomController.registerRoom
-DELETE  /api/rooms/:id                      controllers.RoomController.removeRoom(id: Long)
+DELETE  /api/rooms/:id                     controllers.RoomController.removeRoom(id: Long)
 
 GET     /api/rooms/:id/events              controllers.RoomController.getRoomEvents(id: Long)
 POST    /api/rooms/:id/events              controllers.RoomController.registerNewEvent(id: Long)
