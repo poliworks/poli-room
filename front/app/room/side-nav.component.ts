@@ -49,8 +49,8 @@ export class SidenavComponent implements OnInit {
 
     ngOnInit(): void {
         console.log("Requesting to get rooms");
-        let reqMap = {url: "rooms_per_building", method: "get", handler: this.getRoomsPerBuilding.bind(this)};
-        this.http.req(reqMap);
+        this.http.req({url: "rooms_per_building",
+                       handler: this.getRoomsPerBuilding.bind(this)});
         jQuery('.collapsible').collapsible();
     }
 }

@@ -43,9 +43,8 @@ export class RoomContentComponent implements OnInit {
 
     getRoom() {
         this.http.req({url: "get_room",
-            method: "get",
-            replaceMap: {id: this.roomId},
-            handler: this.setRoom.bind(this)})
+                       replaceMap: {id: this.roomId},
+                       handler: this.setRoom.bind(this)})
     }
 
     setRoom(response: Response) {

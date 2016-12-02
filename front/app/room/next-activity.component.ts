@@ -53,9 +53,8 @@ export class NextActivityComponent implements OnInit, OnChanges {
 
     private getEvents() {
         this.http.req({url: "room_events",
-            method: "get",
-            replaceMap: {id: this.roomId},
-            handler: this.setEvents.bind(this)})
+                       replaceMap: {id: this.roomId},
+                       handler: this.setEvents.bind(this)})
     }
 
     private setEvents(response: Response) {
