@@ -41,9 +41,8 @@ export class ProblemsComponent implements OnInit, OnChanges {
 
     getProblems() {
         this.http.req({url: "room_problems",
-            method: "get",
-            replaceMap: {id: this.roomId},
-            handler: this.setProblems.bind(this)})
+                       replaceMap: {id: this.roomId},
+                       handler: this.setProblems.bind(this)})
     }
 
     setProblems(response: Response) {

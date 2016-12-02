@@ -8,8 +8,8 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq(
-  evolutions,
   filters,
+  "org.flywaydb" %% "flyway-play" % "3.0.1",
   "org.postgresql" % "postgresql" % "9.4.1210",
   "com.pauldijou" %% "jwt-core" % "0.8.1",
   "com.pauldijou" %% "jwt-play-json" % "0.8.1",

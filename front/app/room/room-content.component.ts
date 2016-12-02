@@ -25,14 +25,22 @@ import 'rxjs/add/operator/switchMap';
 
         </div>
     </div>
-    <new-activity-modal></new-activity-modal>
+    <new-activity-modal (onNewActivityCreation)="onNewActivityCreation($event);"></new-activity-modal>
     `
 })
 export class RoomContentComponent implements OnInit {
 
+    @Output() update = new EventEmitter<Response>();
+
     constructor(private http: HttpService, private route: ActivatedRoute, private router: Router) {
     }
 
+    onNewActivityCreation(response: Response) {
+        console.log("EMITIU");
+        window.location.reload();
+        this.update.emit(response);
+        this.getRoom();
+    }
 
     roomId: number;
     name: string;
@@ -44,9 +52,8 @@ export class RoomContentComponent implements OnInit {
 
     getRoom() {
         this.http.req({url: "get_room",
-            method: "get",
-            replaceMap: {id: this.roomId},
-            handler: this.setRoom.bind(this)})
+                       replaceMap: {id: this.roomId},
+                       handler: this.setRoom.bind(this)})
     }
 
     setRoom(response: Response) {

@@ -48,17 +48,23 @@ export class HttpService {
     }
 
     getMethod(reqMap: ReqMap): RequestMethod {
-        switch (reqMap.method.toLowerCase()) {
-            case "get": {
-                return RequestMethod.Get;
+
+        if (reqMap.method != null) {
+            switch (reqMap.method.toLowerCase()) {
+                case "get": {
+                    return RequestMethod.Get;
+                }
+                case "post": {
+                    return RequestMethod.Post;
+                }
+                case "delete": {
+                    return RequestMethod.Delete;
+                }
             }
-            case "post": {
-                return RequestMethod.Post;
-            }
-            case "delete": {
-                return RequestMethod.Delete;
-            }
+        } else {
+            return HttpService.discovery[reqMap.url].method
         }
+
     }
 
     renderUrl(reqMap: ReqMap): string {
@@ -83,7 +89,7 @@ export class HttpService {
 
 export interface ReqMap {
     url: string;
-    method: string;
+    method?: string;
     replaceMap?: Object;
     body?: any;
     handler: (value: Response) => any;

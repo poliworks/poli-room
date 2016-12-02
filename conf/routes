@@ -5,16 +5,18 @@
 GET     /discovery                         controllers.MainController.getDiscovery
 
 GET     /api/rooms/:id                     controllers.RoomController.getRoom(id: Long)
+GET     /api/buildings                     controllers.RoomController.getBuildings()
 GET     /api/buildings/:building/rooms     controllers.RoomController.getRooms(building)
 GET     /api/buildings/rooms               controllers.RoomController.getRoomsByBuilding
 POST    /api/rooms                         controllers.RoomController.registerRoom
-DELETE  /api/rooms/:id                      controllers.RoomController.removeRoom(id: Long)
+DELETE  /api/rooms/:id                     controllers.RoomController.removeRoom(id: Long)
 
 GET     /api/rooms/:id/events              controllers.RoomController.getRoomEvents(id: Long)
 POST    /api/rooms/:id/events              controllers.RoomController.registerNewEvent(id: Long)
 DELETE  /api/events/:id                    controllers.EventController.removeEvent(id: Long)
 
 GET     /api/rooms/:id/features            controllers.RoomController.getRoomFeatures(id: Long)
+GET     /api/features                      controllers.FeatureController.getAllFeatures()
 POST    /api/rooms/:id/features            controllers.RoomController.registerNewFeature(id: Long)
 DELETE  /api/features/:id                  controllers.FeatureController.removeFeature(id: Long)
 
@@ -23,6 +25,7 @@ POST    /api/rooms/:id/problems            controllers.RoomController.registerNe
 DELETE  /api/problems/:id                  controllers.ProblemController.removeProblem(id: Long)
 
 POST    /api/user                          controllers.UserController.registerUser
+POST    /api/user/login                    controllers.UserController.login
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                   controllers.Assets.versioned(path="/public", file: Asset)

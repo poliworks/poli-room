@@ -1,9 +1,13 @@
-import {Component, OnInit, ChangeDetectorRef, Input, Output, OnChanges, SimpleChanges} from '@angular/core';
+import {
+    Component, OnInit, ChangeDetectorRef, Input, Output, OnChanges, SimpleChanges,
+    EventEmitter
+} from '@angular/core';
 import { Router,
     NavigationExtras } from '@angular/router';
 import {HttpService} from "../shared/http.service";
 import {Response} from "@angular/http";
 import {log} from "util";
+import {Activity} from "./new-activity.component";
 declare var moment : any;
 declare var jQuery : any;
 @Component({
@@ -32,7 +36,6 @@ declare var jQuery : any;
 })
 export class NextActivityComponent implements OnInit, OnChanges {
 
-
     openNewActivityModal() {
         jQuery('select').material_select();
     }
@@ -57,11 +60,19 @@ export class NextActivityComponent implements OnInit, OnChanges {
         return moment(utc).format("DD/MM")
     }
 
+    update(response: Response) {
+        console.log("UPDATING")
+        this.getEvents()
+    }
+
+    onNewActivityCreation(response: Response) {
+        this.getEvents()
+    }
+
     private getEvents() {
         this.http.req({url: "room_events",
-            method: "get",
-            replaceMap: {id: this.roomId},
-            handler: this.setEvents.bind(this)})
+                       replaceMap: {id: this.roomId},
+                       handler: this.setEvents.bind(this)})
     }
 
     private setEvents(response: Response) {

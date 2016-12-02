@@ -1,7 +1,7 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
-import { Router,
-    NavigationExtras } from '@angular/router';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import {HttpService} from "../shared/http.service";
+import {Response} from "@angular/http";
 declare var jQuery : any;
 declare var flatpickr : any;
 declare var moment : any;
@@ -42,7 +42,7 @@ declare var moment : any;
                     <div class="row">
                         <div class="input-field col s6">
                             <select id="na-select-recurrence" name="recurrence">
-                                <option *ngFor="let rt of getRecurrenceTypes()" [ngValue]="rt">{{rt}}</option>
+                                <option *ngFor="let rt of getRecurrenceTypes()" [ngValue]="model.recurrence">{{rt}}</option>
                             </select>
                         <label>Recorrência</label>
                         </div>
@@ -70,7 +70,7 @@ export class NewActivityComponent implements OnInit {
         "Mensalmente": "monthly",
         "Anualmente": "yearly"
     };
-    constructor(private http: HttpService) {}
+    constructor(private http: HttpService, private route: ActivatedRoute) {}
     ngOnInit() {
         jQuery('.modal-trigger').leanModal();
         flatpickr(".flatpickr", {
@@ -80,24 +80,28 @@ export class NewActivityComponent implements OnInit {
     createActivity() {
         //this.model.building = jQuery("#new-room-form input.select-dropdown")[0].value;
         console.log(this.model);
+        this.model.recurrence = this.recurrenceTypesMap[jQuery("#new-activity-form input.select-dropdown")[0].value];
         this.registerActivity(this.model);
     }
     emitNewActivityCreation(activity : any) {
+        console.log(activity);
         this.onNewActivityCreation.emit(activity);
     }
 
-
     registerActivity(activity  : any){
         let r = {
-            "name": "Engenharia de Comunicações",
-            "description": "Uma aula muito divertida!",
-            "recurrence": "weekly",
-            "startTime": 1480587600000,
-            "endTime": 1480597200000,
+            "name": this.model.name,
+            "description": this.model.description,
+            "recurrence": this.model.recurrence,
+            "startTime": parseInt(moment(this.startTimeString).format("X")),
+            "endTime": parseInt(moment(this.endTimeString).format("X")),
             "scheduledBy": 1,
-            "roomId": 7
         };
-        let reqMap = {url: "register_events", method: "post", body: r, handler: this.emitNewActivityCreation.bind(this)};
+        console.log(r)
+        let reqMap = {url: "register_events",
+                      body: r,
+                      replaceMap: {id: this.route.snapshot.params["id"]},
+                      handler: this.emitNewActivityCreation.bind(this)};
         this.http.req(reqMap);
     }
     getRecurrenceTypes() {
