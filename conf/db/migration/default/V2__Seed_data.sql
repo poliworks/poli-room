@@ -38,12 +38,12 @@ INSERT INTO events (start_time, end_time, name, description, scheduled_by, recur
 INSERT INTO events (start_time, end_time, name, description, scheduled_by, recurrence, room_id) VALUES ('2016-12-06 11:36:12.000000', '2016-12-06 12:36:15.721000', 'Evento 7', 'Outro evento qualquer 5', 1, 'daily', 2);
 INSERT INTO events (start_time, end_time, name, description, scheduled_by, recurrence, room_id) VALUES ('2016-12-07 10:36:12.000000', '2016-12-07 11:36:15.721000', 'Evento 8', 'Outro evento qualquer 6', 2, 'weekly', 4);
 INSERT INTO features (name, description, quantity, img) VALUES ('quadro branco', 'desc', 1, 'whiteboard.png');
-INSERT INTO features (name, description, quantity, img) VALUES ('quadro negro', 'desc', 1, 'whiteboard.png');
-INSERT INTO features (name, description, quantity, img) VALUES ('ar condicionado', 'desc', 1, 'whiteboard.png');
-INSERT INTO features (name, description, quantity, img) VALUES ('ventilador', 'desc', 1, 'whiteboard.png');
-INSERT INTO features (name, description, quantity, img) VALUES ('projetor', 'desc', 1, 'whiteboard.png');
-INSERT INTO features (name, description, quantity, img) VALUES ('caixa de som', 'desc', 1, 'whiteboard.png');
-INSERT INTO features (name, description, quantity, img) VALUES ('luz', 'desc', 1, 'whiteboard.png');
+INSERT INTO features (name, description, quantity, img) VALUES ('quadro negro', 'desc', 1, 'blackboard.png');
+INSERT INTO features (name, description, quantity, img) VALUES ('ar condicionado', 'desc', 1, 'ac.png');
+INSERT INTO features (name, description, quantity, img) VALUES ('ventilador', 'desc', 1, 'ventilador.png');
+INSERT INTO features (name, description, quantity, img) VALUES ('projetor', 'desc', 1, 'projetor.png');
+INSERT INTO features (name, description, quantity, img) VALUES ('caixa de som', 'desc', 1, 'sound.png');
+INSERT INTO features (name, description, quantity, img) VALUES ('luz', 'desc', 1, 'luz.png');
 INSERT INTO problems (name, description, reported_by, reported_at, feature_id, room_id) VALUES ('Lousa Manchada', 'Lousa está manchada com a cor azul', 1, '2016-12-02 01:24:43.530000', 1, 1);
 INSERT INTO problems (name, description, reported_by, reported_at, feature_id, room_id) VALUES ('Ar quebrado', 'Ar condicionado está com defeito', 2, '2016-12-02 01:25:20.329000', 3, 2);
 INSERT INTO problems (name, description, reported_by, reported_at, feature_id, room_id) VALUES ('Sem giz', 'Sala está sem nenhum giz de louse', 1, '2016-12-02 01:26:46.117000', NULL, 3);
