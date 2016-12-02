@@ -48,8 +48,8 @@ export class LoginFormComponent {
     }
 
     makeLogin(response: Response) {
-        HttpService.user = response.json()
-        this.router.navigate(["/room/", 1])
+        HttpService.setUser(response.json());
+        this.router.navigate(["/room/", 1]);
         console.log(HttpService.user)
     }
 

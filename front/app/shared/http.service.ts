@@ -1,6 +1,7 @@
 import { Injectable }     from '@angular/core';
 import {Http, Response, Headers, RequestOptions, RequestMethod, Request} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
+import { Router } from '@angular/router'
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -8,9 +9,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 import {RequestArgs} from "@angular/http/src/interfaces";
 import {AppComponent} from "../app.component";
-import {isNullOrUndefined} from "util";
 import {AppModule} from "../app.module";
-import {Router} from "@angular/router";
 
 declare var Materialize: any;
 
@@ -48,7 +47,7 @@ export class HttpService {
     }
 
     private simpleReq(reqMap: ReqMap) {
-        this.http.request(this.getRequestMap(reqMap)).toPromise().then(r => reqMap.handler(r)).catch(this.catchError)
+        this.http.request(this.getRequestMap(reqMap)).toPromise().then(r => reqMap.handler(r)).catch(this.catchError.bind(this))
     }
 
     private catchError(reason: Response) {
@@ -103,12 +102,17 @@ export class HttpService {
         return req;
     }
 
-    getToken(reqMap: ReqMap) {
-        if (reqMap.token != null) {
-            return reqMap.token;
-        } else {
-            return HttpService.user != null ? HttpService.user.token : ""
-        }
+    getToken(reqMap: ReqMap): string {
+        return "Bearer " + (reqMap.token || (HttpService.user != null ? HttpService.user.token : null) || this.getTokenFromSession() || "")
+    }
+
+    getTokenFromSession(): string {
+        return localStorage.getItem("user_token")
+    }
+
+    static setUser(user: User): void {
+        HttpService.user = user;
+        localStorage.setItem("user_token", user.token)
     }
 
 }

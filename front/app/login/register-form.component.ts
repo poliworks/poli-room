@@ -78,7 +78,7 @@ export class RegisterFormComponent implements AfterViewInit{
 
     makeRegister(response: Response) {
         console.log(response);
-        HttpService.user = response.json()
+        HttpService.setUser(response.json());
         this.router.navigate(["/rooms", 1])
     }
 
