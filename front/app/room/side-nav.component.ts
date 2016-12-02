@@ -22,15 +22,16 @@ declare var jQuery : any;
           </div>
         </li>
       </ul>
-      <new-room-modal (onNewRoomCreation)="newRoomWasCreated()"></new-room-modal>
+      <new-room-modal (onNewRoomCreation)="onNewRoomCreation($event);"></new-room-modal>
     `,
     providers: [HttpService]
 })
 export class SidenavComponent implements OnInit {
 
     buildingsRooms : Object = {};
-    newRoomWasCreated(room : Room) {
-        console.log("newRoomWasCreated", room);
+    onNewRoomCreation(room) {
+        console.log("newRoomWasCreated")
+        console.log(room);
         //this.buildingsRooms[room.building].push(room);
         this.getRoomsPerBuilding();
     }
