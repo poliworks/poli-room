@@ -25,7 +25,7 @@ class TokenService @Inject()(config: Configuration) extends ITokenService {
   override def validate(token: String, userType: Option[String]): Try[JsValue] = {
     val decodedToken = decode(token)
     userType match {
-      case Some(s) =>decodedToken.filter(tk => (tk \ "userType").as[String] == s)
+      case Some(s) => decodedToken.filter(tk => (tk \ "userType").as[String] == s)
       case None => decodedToken
     }
   }

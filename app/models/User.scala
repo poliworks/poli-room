@@ -2,14 +2,19 @@ package models
 
 import models.dao.UserDao
 import scalikejdbc._
-import traits.DatabaseModel
+import traits.{DatabaseModel, ITokenService}
 import com.github.t3hnar.bcrypt._
 import misc.exceptions.BadRequestException
 import misc.json.schemas.{LoginUserSchema, RegisterUserSchema}
-import play.api.libs.json.{Format, Json}
+import play.api.libs.json._
 
 case class User(name: String, email: String, encryptedPassword: String, userType: String, id: Long = 0L) {
   def checkPassword(password: String): Boolean = password.isBcrypted(this.encryptedPassword)
+
+  def getJsonUserWithToken(tokenService: ITokenService): JsValue = {
+    val token = tokenService.create(this.id, this.userType)
+    (Json.toJson(this).as[JsObject] - "encryptedPassword") + ("token", JsString(token))
+  }
 }
 
 object User extends DatabaseModel[User]("users") {

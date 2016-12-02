@@ -2,6 +2,7 @@ package controllers
 
 import javax.inject.Inject
 
+import components.TokenService
 import misc.exceptions.{BadRequestException, NotFoundException}
 import misc.json.schemas.{RegisterEventSchema, RegisterFeatureSchema, RegisterProblemSchema, RegisterRoomSchema}
 import models.{Event, Feature, Problem, Room}
@@ -10,14 +11,14 @@ import play.Configuration
 import play.api.libs.json._
 import play.api.mvc.{Action, Controller}
 import scalikejdbc._
-import traits.Interceptors
+import traits.{ITokenService, Interceptors}
 import play.api.libs.json.DefaultFormat
 
 
 /**
   * Created by leoiacovini on 11/30/16.
   */
-class RoomController @Inject()(configuration: Configuration) extends Controller with Interceptors {
+class RoomController @Inject()(configuration: Configuration, tokenService: ITokenService) extends Controller with Interceptors {
 
   def getRooms(building: String) = Action {
     val rooms: List[Room] = DB readOnly { implicit session => new RoomDao().findAllFromBuilding(building) }
@@ -39,7 +40,7 @@ class RoomController @Inject()(configuration: Configuration) extends Controller 
     Ok(Json.toJson(room))
   }
 
-  def getRoomsByBuilding() = Action {
+  def getRoomsByBuilding() = AuthAction(tokenService)(null) {
     val allRooms = DB readOnly { implicit session => new RoomDao().allRoomsByBuilding }
     Ok(Json.toJson(allRooms))
   }

@@ -22,9 +22,11 @@ declare var jQuery : any;
             <a (click)="openNewActivityModal()" class="modal-trigger waves-effect waves-light btn right" href="#new-activity-modal">+</a>
             <ul class="collection">
               <li *ngFor="let event of this.events;" class="collection-item">
+                <button (click)="deleteEvent(event)" aria-label="Close Account Info Modal Box" class="right btn btn-floating red">&times;</button>
                 <span class="title">{{event.name}} - {{getFormattedDate(event.startTime)}}</span>
                 <p>
                   {{getFormattedTime(event.startTime)}} - {{getFormattedTime(event.endTime)}}<br/>
+                  {{recurrenceMap[event.recurrence]}}<br/>
                   {{event.description}}
                 </p>
               </li>
@@ -47,6 +49,10 @@ export class NextActivityComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         this.events = [];
+    }
+
+    deleteEvent(e: any) {
+        this.http.req({url: "delete_event", replaceMap: {id: e.id}, handler: this.getEvents.bind(this)})
     }
 
     @Input() roomId: number;
@@ -75,6 +81,8 @@ export class NextActivityComponent implements OnInit, OnChanges {
                        replaceMap: {id: this.roomId},
                        handler: this.setEvents.bind(this)})
     }
+
+    recurrenceMap = {single: "Unica", weekly: "Semanal", monthly: "Mensal", yearly: "Anual", daily: "Diaria"}
 
     private setEvents(response: Response) {
         console.log("events was");

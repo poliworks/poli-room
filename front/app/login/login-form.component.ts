@@ -1,6 +1,8 @@
 import {Component, OnInit}        from '@angular/core';
 import { Router,
     NavigationExtras } from '@angular/router';
+import {HttpService} from "../shared/http.service";
+import {Response, Http} from "@angular/http";
 
 declare var jQuery: any;
 
@@ -14,19 +16,21 @@ declare var jQuery: any;
                 <span class="card-title">Login</span>
                 <div class="row">
                   <div class="input-field col s12">
-                    <input id="username" type="text" class="validate">
-                    <label for="" class="white-text">Username</label>
+                    <input id="username" type="text" class="validate" [(ngModel)]="email">
+                    <label for="" class="white-text">Email</label>
                   </div>
                 </div>
                 <div class="row">
                   <div class="input-field col s12">
-                    <input id="password" type="password" class="validate">
+                    <input id="password" type="password" class="validate" [(ngModel)]="password">
                     <label for="password" class="white-text">Password</label>
                   </div>
                 </div>
-                <a id="loginSubmit" class="btn waves-effect waves-light indigo lighten-1 submit-button" href="/room/3">Submit
-                  <i class="material-icons right">send</i>
-                </a>
+                <div class="row">
+                    <a id="loginSubmit" class="btn waves-effect waves-light indigo lighten-1 right" (click)="login()">Login</a>
+                    <a id="registerSubmit" class="left btn waves-effect waves-light indigo lighten-1" href="register">Register</a>
+                </div>
+                
               </div>
             </div>
           </div>
@@ -35,5 +39,18 @@ declare var jQuery: any;
     `
 })
 export class LoginFormComponent {
+    email: string;
+    password: string;
+
+    constructor (private http: HttpService, private router: Router) {}
+    login() {
+        this.http.req({url: "login_user", body: {email: this.email, password: this.password}, handler: this.makeLogin.bind(this)})
+    }
+
+    makeLogin(response: Response) {
+        HttpService.user = response.json()
+        this.router.navigate(["/room/", 1])
+        console.log(HttpService.user)
+    }
 
 }

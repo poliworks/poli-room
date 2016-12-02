@@ -13,7 +13,7 @@ class CheckToken(tokenService: ITokenService, userType: String = null) extends A
   def refine[A](request: Request[A]) = Future.successful {
     new AuthRequest(request, null).rawToken.map { t => tokenService.validate(t, Option(userType)) match {
       case Success(token) => Right(new AuthRequest(request, token))
-      case Failure(f) => Left(BadRequest(JsonHelpers.toJsonError("Invalid Token"))) }
-    }.getOrElse(Left(BadRequest(JsonHelpers.toJsonError("Missing Token"))))
+      case Failure(f) => Left(Forbidden(JsonHelpers.toJsonError("Invalid Token"))) }
+    }.getOrElse(Left(Forbidden(JsonHelpers.toJsonError("Missing Token"))))
   }
 }

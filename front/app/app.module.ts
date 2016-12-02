@@ -17,11 +17,13 @@ import {NewRoomComponent} from "./room/new-room.component";
 import {NewActivityComponent} from "./room/new-activity.component";
 import {NewProblemComponent} from "./room/new-problem.component";
 import {SelectFeatureComponent} from "./room/select-feature.component";
+import {RegisterFormComponent} from "./login/register-form.component";
 
 const appRoutes : Routes = [
     {path: "", component: LoginFormComponent, pathMatch: "full"},
     {path: "login", component: LoginFormComponent},
-    {path: "room/:id", component: RoomComponent}
+    {path: "room/:id", component: RoomComponent},
+    {path: "register", component: RegisterFormComponent}
 ];
 
 @NgModule({
@@ -39,7 +41,8 @@ const appRoutes : Routes = [
         NewRoomComponent,
         NewActivityComponent,
         NewProblemComponent,
-        SelectFeatureComponent
+        SelectFeatureComponent,
+        RegisterFormComponent
     ],
     bootstrap:    [ AppComponent ]
 })

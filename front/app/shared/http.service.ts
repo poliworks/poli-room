@@ -10,14 +10,18 @@ import {RequestArgs} from "@angular/http/src/interfaces";
 import {AppComponent} from "../app.component";
 import {isNullOrUndefined} from "util";
 import {AppModule} from "../app.module";
+import {Router} from "@angular/router";
 
+declare var Materialize: any;
 
 @Injectable()
 export class HttpService {
 
-    constructor (private http: Http) {}
+    constructor (private http: Http, private router: Router) {}
 
     static discovery: Object = null;
+
+    static user: User = null;
 
     init(fn: Function) {
         console.log("init: get-discovery")
@@ -44,7 +48,17 @@ export class HttpService {
     }
 
     private simpleReq(reqMap: ReqMap) {
-        this.http.request(this.getRequestMap(reqMap)).toPromise().then(r => reqMap.handler(r))
+        this.http.request(this.getRequestMap(reqMap)).toPromise().then(r => reqMap.handler(r)).catch(this.catchError)
+    }
+
+    private catchError(reason: Response) {
+        if (reason.status == 403) {
+            Materialize.toast("Acessor negado, pau no seu cu", 4000);
+            this.router.navigate(["/login/"])
+        } else {
+            Materialize.toast(reason.status + "  " + reason.json()["message"], 4000);
+        }
+        console.log(reason)
     }
 
     getMethod(reqMap: ReqMap): RequestMethod {
@@ -83,8 +97,20 @@ export class HttpService {
     }
 
     getRequestMap(reqMap: ReqMap): Request {
-        return new Request({url: this.renderUrl(reqMap), method: this.getMethod(reqMap), body: reqMap.body})
+        let req = new Request({url: this.renderUrl(reqMap), method: this.getMethod(reqMap), body: reqMap.body});
+        req.headers.append("Authorization", this.getToken(reqMap));
+        console.log(req.headers.toJSON());
+        return req;
     }
+
+    getToken(reqMap: ReqMap) {
+        if (reqMap.token != null) {
+            return reqMap.token;
+        } else {
+            return HttpService.user != null ? HttpService.user.token : ""
+        }
+    }
+
 }
 
 export interface ReqMap {
@@ -92,10 +118,19 @@ export interface ReqMap {
     method?: string;
     replaceMap?: Object;
     body?: any;
+    token?: string;
     handler: (value: Response) => any;
 }
 
 export interface DiscoveryEntry {
     url?: string,
     method?: string,
+}
+
+export interface User {
+    name: string,
+    id: number,
+    email: string,
+    usertType: string,
+    token: string
 }
