@@ -26,6 +26,7 @@ import 'rxjs/add/operator/switchMap';
         </div>
     </div>
     <new-activity-modal></new-activity-modal>
+    <new-problem-modal [roomId]="roomId"></new-problem-modal>
     `
 })
 export class RoomContentComponent implements OnInit {

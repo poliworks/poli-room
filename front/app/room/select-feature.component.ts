@@ -1,29 +1,41 @@
-import {Component, Input, SimpleChanges, OnChanges} from '@angular/core';
+import {Component, Input, SimpleChanges, OnChanges, Output} from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import {HttpService} from "../shared/http.service";
 import {Response} from "@angular/http";
+import {Feature} from "./features.component";
 
+declare var jQuery;
 @Component({
-    selector: `room-features`,
+    selector: `select-feature`,
     template: `
               <div *ngFor="let feature of features" class="col s6 m2">
-                <div class="card">
+                <div class="card feature-option" id="feature-{{feature.id}}"(click)="featureClick($event)">
                   <div class="card-image">
                     <img src="assets/img/{{feature.img}}" class="feature">
                     <div class="card-content feature-text">
-                      <p>{{feature.name}}</p>
+                      <p style="color:black">{{feature.name}}</p>
                     </div>
                   </div>
                 </div>
               </div>
-    `
+    `,
+    styles: [".selected-feature { border: 5px solid grey}"]
 })
-export class FeaturesComponent implements OnChanges {
+export class SelectFeatureComponent implements OnChanges {
 
     @Input() roomId: number;
 
-    features : Object[] = [];
+    @Output('selected') selectedFeature: Feature = new Feature();
 
+    features : Feature[] = [];
+    featureClick(e: any) {
+        console.log("feature-click!")
+        console.log(e, e.target, e.srcElement, e.currentTarget);
+        let id = e.currentTarget.attributes.id.nodeValue;
+        jQuery(`.card`).removeClass("selected-feature");
+        jQuery(`#${id}`).addClass("selected-feature")
+
+    }
     constructor (private http: HttpService) { }
 
     getFeatures() {
@@ -42,11 +54,4 @@ export class FeaturesComponent implements OnChanges {
         this.getFeatures();
     }
 
-}
-
-export class Feature {
-    name: string;
-    description: string;
-    quantity: number;
-    img: string;
 }

@@ -1,0 +1,12 @@
+input {
+  color: white;
+}
+
+.modal-footer,
+.modal-content {
+  color: white;
+  background-color: #2D4471;
+}
+.modal-footer a {
+  color:white;
+}

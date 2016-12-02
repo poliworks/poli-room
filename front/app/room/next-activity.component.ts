@@ -15,7 +15,7 @@ declare var jQuery : any;
           <div class="card-content">
             <span class="card-title">Próximas Atitivades</span>
             <!--<button data-target="new-activity-modal" class="right btn">+</button>-->
-            <a (click)="openNewActivityModal()" class="modal-trigger waves-effect waves-light btn right" href="#new-activity-modal">Modal</a>
+            <a (click)="openNewActivityModal()" class="modal-trigger waves-effect waves-light btn right" href="#new-activity-modal">+</a>
             <ul class="collection">
               <li *ngFor="let event of this.events;" class="collection-item">
                 <span class="title">{{event.name}} - {{getFormattedDate(event.startTime)}}</span>

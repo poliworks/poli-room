@@ -15,6 +15,8 @@ import {ProblemsComponent} from "./room/problems.component";
 import {FeaturesComponent} from "./room/features.component";
 import {NewRoomComponent} from "./room/new-room.component";
 import {NewActivityComponent} from "./room/new-activity.component";
+import {NewProblemComponent} from "./room/new-problem.component";
+import {SelectFeatureComponent} from "./room/select-feature.component";
 
 const appRoutes : Routes = [
     {path: "login", component: LoginFormComponent},
@@ -34,7 +36,9 @@ const appRoutes : Routes = [
         ProblemsComponent,
         FeaturesComponent,
         NewRoomComponent,
-        NewActivityComponent
+        NewActivityComponent,
+        NewProblemComponent,
+        SelectFeatureComponent
     ],
     bootstrap:    [ AppComponent ]
 })

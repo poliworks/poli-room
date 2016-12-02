@@ -80,7 +80,7 @@ export class NewActivityComponent implements OnInit {
     createActivity() {
         //this.model.building = jQuery("#new-room-form input.select-dropdown")[0].value;
         console.log(this.model);
-        this.registerActivity(this.model);
+        //this.registerActivity(this.model);
     }
     emitNewActivityCreation(activity : any) {
         this.onNewActivityCreation.emit(activity);

@@ -12,6 +12,7 @@ import {Response} from "@angular/http";
         <div class="card">
           <div class="card-content">
             <span class="card-title">Manutenções Cadastradas</span>
+            <a (click)="openNewProblemModal()" class="modal-trigger waves-effect waves-light btn right" href="#new-problem-modal">+</a>
             <ul class="collection">
               <li *ngFor="let problem of problems;" class="collection-item">
                 <span class="title">{{problem.name}}</span>
@@ -28,7 +29,9 @@ export class ProblemsComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         this.getProblems()
     }
-
+    openNewProblemModal() {
+        console.log("Novo problema na área");
+    }
     problems : Object[] = [];
 
     @Input() roomId: number;
