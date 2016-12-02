@@ -1,0 +1,24 @@
+INSERT INTO rooms (name, building, department, size) VALUES ('teste', 'fedido', 'coco', 10);
+INSERT INTO rooms (name, building, department, size) VALUES ('outra', 'fedido', 'nanan', 20);
+INSERT INTO rooms (name, building, department, size) VALUES ('sala2', 'lele', 'baba', 20);
+INSERT INTO rooms (name, building, department, size) VALUES ('sala3', 'lele', 'bubu', 30);
+INSERT INTO rooms (name, building, department, size) VALUES ('Inserido', 'Predio', 'PCS', 30);
+INSERT INTO rooms (name, building, department, size) VALUES ('SemFeature', 'Predio', 'PCS', 40);
+INSERT INTO users (email, encrypted_password, name, user_type) VALUES ('teste@mail.com', '1234', 'teste', 'aluno');
+INSERT INTO events (start_time, end_time, name, description, scheduled_by, recurrence, room_id) VALUES ('2016-11-30 13:36:12.000000', '2016-11-30 14:36:15.721000', 'Evento 1', 'Um evento qualquer', 1, 'weekly', 1);
+INSERT INTO features (name, description, quantity, img) VALUES ('quadro branco', 'desc', 1, 'whiteboard.png');
+INSERT INTO features (name, description, quantity, img) VALUES ('quadro negro', 'desc', 1, 'whiteboard.png');
+INSERT INTO features (name, description, quantity, img) VALUES ('ar condicionado', 'desc', 1, 'whiteboard.png');
+INSERT INTO features (name, description, quantity, img) VALUES ('ventilador', 'desc', 1, 'whiteboard.png');
+INSERT INTO features (name, description, quantity, img) VALUES ('projetor', 'desc', 1, 'whiteboard.png');
+INSERT INTO features (name, description, quantity, img) VALUES ('caixa de som', 'desc', 1, 'whiteboard.png');
+INSERT INTO features (name, description, quantity, img) VALUES ('luz', 'desc', 1, 'whiteboard.png');
+INSERT INTO rooms_features (room_id, features_id) VALUES (1, 1);
+INSERT INTO rooms_features (room_id, features_id) VALUES (1, 2);
+INSERT INTO rooms_features (room_id, features_id) VALUES (1, 3);
+INSERT INTO rooms_features (room_id, features_id) VALUES (2, 1);
+INSERT INTO rooms_features (room_id, features_id) VALUES (2, 4);
+INSERT INTO rooms_features (room_id, features_id) VALUES (2, 5);
+INSERT INTO rooms_features (room_id, features_id) VALUES (3, 6);
+INSERT INTO rooms_features (room_id, features_id) VALUES (3, 7);
+INSERT INTO rooms_features (room_id, features_id) VALUES (1, 6)
