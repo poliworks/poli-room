@@ -4,7 +4,7 @@ import {HttpService} from "../shared/http.service";
 import {Response} from "@angular/http";
 import {Feature} from "./features.component";
 
-declare var jQuery;
+declare var jQuery:any;
 @Component({
     selector: `select-feature`,
     template: `
