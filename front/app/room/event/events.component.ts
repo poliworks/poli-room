@@ -1,15 +1,9 @@
-import {
-    Component, OnInit, ChangeDetectorRef, Input, Output, OnChanges, SimpleChanges,
-    EventEmitter
-} from '@angular/core';
-import { Router,
-    NavigationExtras } from '@angular/router';
+import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {HttpService} from "../../shared/http.service";
 import {Response} from "@angular/http";
-import {log} from "util";
-import {Activity} from "./new-event.component";
-declare var moment : any;
-declare var jQuery : any;
+declare var moment: any;
+declare var jQuery: any;
+
 @Component({
     selector: `room-events`,
     template: `
@@ -18,7 +12,6 @@ declare var jQuery : any;
         <div class="card">
           <div class="card-content">
             <span class="card-title">Próximas Atitivades</span>
-            <!--<button data-target="new-activity-modal" class="right btn">+</button>-->
             <a (click)="openNewActivityModal()" class="modal-trigger waves-effect waves-light btn right" href="#new-activity-modal">+</a>
             <ul class="collection">
               <li *ngFor="let event of this.events;" class="collection-item">
@@ -38,57 +31,48 @@ declare var jQuery : any;
 })
 export class EventsComponent implements OnInit, OnChanges {
 
-    openNewActivityModal() {
-        jQuery('select').material_select();
+    @Input() roomId: number;
+    @Input() changes: number;
+    recurrenceMap = {single: "Unica", weekly: "Semanal", monthly: "Mensal", yearly: "Anual", daily: "Diaria"}
+    events: Object[] = [];
+
+    constructor(private http: HttpService) { }
+
+    ngOnInit(): void {
+        this.events = [];
     }
+
     ngOnChanges(changes: SimpleChanges): void {
         this.getEvents();
     }
 
-    constructor (private http: HttpService) { }
-
-    ngOnInit(): void {
-        this.events = [];
+    openNewActivityModal() {
+        jQuery('select').material_select();
     }
 
     deleteEvent(e: any) {
         this.http.req({url: "delete_event", replaceMap: {id: e.id}, handler: this.getEvents.bind(this)})
     }
 
-    @Input() roomId: number;
-    @Input() changes: number;
 
-    events : Object[] = [];
-
-    getFormattedTime(utc: string) : string {
+    getFormattedTime(utc: string): string {
         return moment(utc).format("hh:mm")
     }
+
     getFormattedDate(utc: string): string {
         return moment(utc).format("DD/MM")
     }
 
-    update(response: Response) {
-        console.log("UPDATING")
-        this.getEvents()
-    }
-
-    onNewActivityCreation(response: Response) {
-        this.getEvents()
-    }
-
     private getEvents() {
-        this.http.req({url: "room_events",
-                       replaceMap: {id: this.roomId},
-                       handler: this.setEvents.bind(this)})
+        this.http.req({
+            url: "room_events",
+            replaceMap: {id: this.roomId},
+            handler: this.setEvents.bind(this)
+        })
     }
 
-    recurrenceMap = {single: "Unica", weekly: "Semanal", monthly: "Mensal", yearly: "Anual", daily: "Diaria"}
 
     private setEvents(response: Response) {
-        console.log("events was");
-        console.log(this.events);
         this.events = response.json();
-        console.log("setting events to");
-        console.log(response.json());
     }
 }

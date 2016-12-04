@@ -22,7 +22,7 @@ declare var jQuery : any;
           </div>
         </li>
       </ul>
-      <new-room-modal (onNewRoomCreation)="onNewRoomCreation();"></new-room-modal>
+      <new-room-modal (onNewRoomCreation)="onNewRoomCreation()"></new-room-modal>
     `,
     providers: [HttpService]
 })

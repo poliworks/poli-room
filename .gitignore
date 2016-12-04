@@ -17,3 +17,5 @@ target
 /RUNNING_PID
 node_modules
 .DS_Store
+/classes/*
+classes
