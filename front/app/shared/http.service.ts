@@ -1,6 +1,5 @@
-import { Injectable }     from '@angular/core';
-import {Http, Response, Headers, RequestOptions, RequestMethod, Request} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
+import {Injectable}     from '@angular/core';
+import {Http, Response, RequestMethod, Request} from '@angular/http';
 import {Router, NavigationExtras} from '@angular/router'
 
 // Import RxJs required methods
@@ -16,28 +15,23 @@ declare var Materialize: any;
 @Injectable()
 export class HttpService {
 
-    constructor (private http: Http, private router: Router) {}
+    constructor(private http: Http, private router: Router) { }
 
     static discovery: Object = null;
 
     static user: User = null;
 
     init(fn: Function) {
-        console.log("init: get-discovery")
         this.http.get("http://localhost:9000/discovery").toPromise().then(r => this.setDiscovery(fn, r))
     }
 
     setDiscovery(fn: Function, response: Response) {
         HttpService.discovery = response.json();
-        console.log(HttpService.discovery);
-        console.log("Discovery Setado");
         fn();
     }
 
     req(reqMap: ReqMap): void {
-        console.log("REQ: " + reqMap.url);
         if (HttpService.discovery === null) {
-            console.log("NULL - INIT DISCOVERY");
             this.init(() => {
                 this.simpleReq(reqMap);
             });
@@ -53,13 +47,12 @@ export class HttpService {
     private catchError(reason: Response) {
         if (reason.status == 403) {
             let navigationExtras: NavigationExtras = {
-                queryParams: { 'forbidden': true },
+                queryParams: {'forbidden': true},
             };
             this.router.navigate(["/login"], navigationExtras);
         } else {
             Materialize.toast(reason.status + "  " + reason.json()["message"], 4000);
         }
-        console.log(reason)
     }
 
     getMethod(reqMap: ReqMap): RequestMethod {
@@ -84,15 +77,12 @@ export class HttpService {
 
     renderUrl(reqMap: ReqMap): string {
         var str = reqMap.url;
-        console.log("Req: " + HttpService.discovery[reqMap.url]);
         if (HttpService.discovery[reqMap.url]) {
-            str =  HttpService.discovery[reqMap.url]["url"];
-            console.log("Achei: " + HttpService.discovery[reqMap.url].url)
+            str = HttpService.discovery[reqMap.url]["url"];
         }
         console.log(reqMap.replaceMap);
         for (let key in reqMap.replaceMap) {
             str = str.replace(new RegExp(`:${key}`), reqMap.replaceMap[key]);
-            console.log("STR: " + str);
         }
         return str;
     }
@@ -111,15 +101,19 @@ export class HttpService {
     getTokenFromSession(): string {
         let userToken = localStorage.getItem("user_token");
         if (userToken) {
-            HttpService.user = JSON.parse(localStorage.getItem("current_user"))
+            HttpService.setUserFromSession()
         }
         return localStorage.getItem("user_token")
     }
 
+    static setUserFromSession() {
+        HttpService.user = JSON.parse(localStorage.getItem("current_user"))
+    }
+
     static setUser(user: User): void {
         HttpService.user = user;
-        localStorage.setItem("user_token", user.token)
-        localStorage.setItem("current_usert", user.toString())
+        localStorage.setItem("user_token", user.token);
+        localStorage.setItem("current_user", JSON.stringify(user))
     }
 
     static destroySession(): void {
@@ -128,7 +122,7 @@ export class HttpService {
     }
 
     static isLoggedIn(): boolean {
-        console.log(HttpService.user != null)
+        HttpService.setUserFromSession();
         return HttpService.user != null
     }
 

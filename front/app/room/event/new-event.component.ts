@@ -16,13 +16,13 @@ declare var moment: any;
                 <form id="new-activity-form" class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
-                          <input id="activity_name" type="text" class="validate" [(ngModel)]="model.name" name="name">
+                          <input id="activity_name" type="text" class="validate" [(ngModel)]="event.name" name="name">
                           <label for="activity_name">Nome da Atividade</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                          <textarea id="activity_description" class="materialize-textarea" [(ngModel)]="model.description" name="description"></textarea>
+                          <textarea id="activity_description" class="materialize-textarea" [(ngModel)]="event.description" name="description"></textarea>
                           <label for="activity_description">Descrição</label>
                         </div>
                     </div>
@@ -41,7 +41,7 @@ declare var moment: any;
                     <div class="row">
                         <div class="input-field col s6">
                             <select id="na-select-recurrence" name="recurrence">
-                                <option *ngFor="let rt of getRecurrenceTypes()" [ngValue]="model.recurrence">{{rt}}</option>
+                                <option *ngFor="let rt of getRecurrenceTypes()" [ngValue]="event.recurrence">{{rt}}</option>
                             </select>
                         <label>Recorrência</label>
                         </div>
@@ -57,10 +57,10 @@ declare var moment: any;
 })
 export class NewEventComponent implements OnInit {
 
-    @Output() onNewActivityCreation = new EventEmitter<Activity>();
+    @Output() onNewActivityCreation = new EventEmitter<Event>();
     @Input() roomId: number;
 
-    activity: Activity = new Activity();
+    event: Event = new Event();
     startTimeString: string;
     endTimeString: string;
     recurrenceTypesMap: Object = {
@@ -81,22 +81,22 @@ export class NewEventComponent implements OnInit {
     }
 
     createActivity() {
-        this.activity.recurrence = this.recurrenceTypesMap[jQuery("#new-activity-form input.select-dropdown")[0].value];
-        this.registerActivity(this.activity);
+        this.event.recurrence = this.recurrenceTypesMap[jQuery("#new-activity-form input.select-dropdown")[0].value];
+        this.registerActivity(this.event);
     }
 
     emitNewActivityCreation(activity: any) {
-        this.onNewActivityCreation.emit(activity);
+        this.onNewActivityCreation.emit(this.event);
     }
 
-    registerActivity(activity: Activity) {
+    registerActivity(activity: Event) {
         let r = {
             "name": activity.name,
             "description": activity.description,
             "recurrence": activity.recurrence,
             "startTime": parseInt(moment(this.startTimeString).format("X")),
             "endTime": parseInt(moment(this.endTimeString).format("X")),
-            "scheduledBy": 1};
+            "scheduledBy": HttpService.user.id};
 
         this.http.req({url: "register_events",
                        body: r,
@@ -108,7 +108,7 @@ export class NewEventComponent implements OnInit {
         return Object.keys(this.recurrenceTypesMap);
     }
 }
-export class Activity {
+export class Event {
     name: string;
     description: string;
     recurrence: string;

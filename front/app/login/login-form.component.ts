@@ -43,18 +43,20 @@ declare var Materialize: any;
 })
 export class LoginFormComponent implements OnInit {
 
-    ngOnInit(): void {
-        let forbidden = this.route.snapshot.queryParams["forbidden"];
-        console.log(forbidden);
-        if (forbidden) {
-            Materialize.toast("Acessor negado, login obrigatorio", 4000);
-        }
-    }
-
     email: string;
     password: string;
 
     constructor (private http: HttpService, private router: Router, private route: ActivatedRoute) {}
+
+    ngOnInit(): void {
+        let forbidden = this.route.snapshot.queryParams["forbidden"];
+        if (forbidden) {
+            Materialize.toast("Acessor negado, login obrigatorio", 4000);
+        } else if (HttpService.isLoggedIn()) {
+            this.router.navigate(["room", 1])
+        }
+    }
+
     login() {
         this.http.req({url: "login_user", body: {email: this.email, password: this.password}, handler: this.makeLogin.bind(this)})
     }
@@ -62,7 +64,6 @@ export class LoginFormComponent implements OnInit {
     makeLogin(response: Response) {
         HttpService.setUser(response.json());
         this.router.navigate(["/room/", 1]);
-        console.log(HttpService.user)
     }
 
 }
