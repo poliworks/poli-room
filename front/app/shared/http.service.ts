@@ -6,20 +6,16 @@ import {Router, NavigationExtras} from '@angular/router'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
-import {RequestArgs} from "@angular/http/src/interfaces";
-import {AppComponent} from "../app.component";
-import {AppModule} from "../app.module";
 
 declare var Materialize: any;
 
 @Injectable()
 export class HttpService {
 
-    constructor(private http: Http, private router: Router) { }
-
     static discovery: Object = null;
-
     static user: User = null;
+
+    constructor(private http: Http, private router: Router) { }
 
     init(fn: Function) {
         this.http.get("http://localhost:9000/discovery").toPromise().then(r => this.setDiscovery(fn, r))
