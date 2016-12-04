@@ -7,11 +7,11 @@ import { Router,
 import {HttpService} from "../../shared/http.service";
 import {Response} from "@angular/http";
 import {log} from "util";
-import {Activity} from "./new-activity.component";
+import {Activity} from "./new-event.component";
 declare var moment : any;
 declare var jQuery : any;
 @Component({
-    selector: `room-next-activity`,
+    selector: `room-events`,
     template: `
     <!-- PROXIMAS ATIVIDADES -->
     <div class="col s12s m6">
@@ -36,7 +36,7 @@ declare var jQuery : any;
      </div>
     `
 })
-export class NextActivityComponent implements OnInit, OnChanges {
+export class EventsComponent implements OnInit, OnChanges {
 
     openNewActivityModal() {
         jQuery('select').material_select();
