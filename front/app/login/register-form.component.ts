@@ -51,21 +51,23 @@ declare var jQuery: any;
     `
 })
 export class RegisterFormComponent implements AfterViewInit{
-    ngAfterViewInit(): void {
-        jQuery("select").material_select();
-    }
+
     email: string;
     password: string;
     name: string;
     userType: string;
-
     userTypes = {"Aluno": "student", "Professor": "teacher"}
+
+    constructor (private http: HttpService, private router: Router) {}
+
+    ngAfterViewInit(): void {
+        jQuery("select").material_select();
+    }
+
 
     getUserTypes() {
         return Object.keys(this.userTypes);
     }
-
-    constructor (private http: HttpService, private router: Router) {}
 
     register() {
         this.userType = this.userTypes[jQuery('.select-dropdown')[0].value];

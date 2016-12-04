@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HttpService} from "../../shared/http.service";
 declare var jQuery: any;
@@ -58,8 +58,9 @@ declare var moment: any;
 export class NewEventComponent implements OnInit {
 
     @Output() onNewActivityCreation = new EventEmitter<Activity>();
+    @Input() roomId: number;
 
-    model: Activity = new Activity();
+    activity: Activity = new Activity();
     startTimeString: string;
     endTimeString: string;
     recurrenceTypesMap: Object = {
@@ -70,8 +71,7 @@ export class NewEventComponent implements OnInit {
         "Anualmente": "yearly"
     };
 
-    constructor(private http: HttpService, private route: ActivatedRoute) {
-    }
+    constructor(private http: HttpService) {}
 
     ngOnInit() {
         jQuery('.modal-trigger').leanModal();
@@ -81,38 +81,30 @@ export class NewEventComponent implements OnInit {
     }
 
     createActivity() {
-        console.log(this.model);
-        this.model.recurrence = this.recurrenceTypesMap[jQuery("#new-activity-form input.select-dropdown")[0].value];
-        this.registerActivity(this.model);
-
+        this.activity.recurrence = this.recurrenceTypesMap[jQuery("#new-activity-form input.select-dropdown")[0].value];
+        this.registerActivity(this.activity);
     }
 
     emitNewActivityCreation(activity: any) {
-        console.log(activity);
         this.onNewActivityCreation.emit(activity);
     }
 
-    registerActivity(activity: any) {
+    registerActivity(activity: Activity) {
         let r = {
-            "name": this.model.name,
-            "description": this.model.description,
-            "recurrence": this.model.recurrence,
+            "name": activity.name,
+            "description": activity.description,
+            "recurrence": activity.recurrence,
             "startTime": parseInt(moment(this.startTimeString).format("X")),
             "endTime": parseInt(moment(this.endTimeString).format("X")),
-            "scheduledBy": 1,
-        };
-        console.log(r);
-        let reqMap = {
-            url: "register_events",
-            body: r,
-            replaceMap: {id: this.route.snapshot.params["id"]},
-            handler: this.emitNewActivityCreation.bind(this)
-        };
-        this.http.req(reqMap);
+            "scheduledBy": 1};
+
+        this.http.req({url: "register_events",
+                       body: r,
+                       replaceMap: {id: this.roomId},
+                       handler: this.emitNewActivityCreation.bind(this)});
     }
 
     getRecurrenceTypes() {
-
         return Object.keys(this.recurrenceTypesMap);
     }
 }

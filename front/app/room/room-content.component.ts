@@ -26,25 +26,24 @@ import 'rxjs/add/operator/switchMap';
 
         </div>
     </div>
-    <new-event-modal (onNewActivityCreation)="onNewActivityCreation($event);"></new-event-modal>
-    <new-problem-modal [roomId]="roomId" (onNewProblemCreation)="onNewProblemCreation($event)"></new-problem-modal>
+    <new-event-modal [roomId]="roomId" (onNewActivityCreation)="onNewActivityCreation();"></new-event-modal>
+    <new-problem-modal [roomId]="roomId" (onNewProblemCreation)="onNewProblemCreation()"></new-problem-modal>
     `
 })
 export class RoomContentComponent implements OnInit {
 
     eventChanges: number = 0;
     problemChanges: number = 0;
-    room: Room;
+    room: Room = {id: 0, name: "", building: "", department: ""};
     roomId: number;
 
     constructor(private http: HttpService, private route: ActivatedRoute) { }
 
-    onNewActivityCreation(response: Response) {
+    onNewActivityCreation() {
         this.eventChanges++;
-        this.getRoom();
     }
 
-    onNewProblemCreation(response: Response) {
+    onNewProblemCreation() {
         this.problemChanges++;
     }
 

@@ -22,49 +22,39 @@ declare var jQuery : any;
           </div>
         </li>
       </ul>
-      <new-room-modal (onNewRoomCreation)="onNewRoomCreation($event);"></new-room-modal>
+      <new-room-modal (onNewRoomCreation)="onNewRoomCreation();"></new-room-modal>
     `,
     providers: [HttpService]
 })
 export class SidenavComponent implements OnInit {
 
     buildingsRooms : Object = {};
-    onNewRoomCreation(room : any) {
-        console.log("newRoomWasCreated")
-        console.log(room);
-        //this.buildingsRooms[room.building].push(room);
-        this.getRoomsPerBuilding();
-    }
-    newRoomOpenModal() {
-        console.log("nova sala");
-        jQuery('select').material_select();
-    }
-    setRoomsPerBuilding(response: Response) {
-        console.group("RESPOSTA");
-        console.log(response);
-        console.log(response.json());
-        console.groupEnd();
-        this.buildingsRooms = response.json();
-    }
-
-
-    getBuildings() {
-        let buildings : Object[] = [];
-        for(let k in this.buildingsRooms) {
-            buildings.push(k);
-        }
-        return buildings;
-    }
 
     constructor(private http: HttpService) {}
 
-    getRoomsPerBuilding(){
-        let reqMap = {url: "rooms_per_building", handler: this.setRoomsPerBuilding.bind(this)};
-        this.http.req(reqMap);
-    }
     ngOnInit(): void {
-        console.log("Requesting to get rooms");
         this.getRoomsPerBuilding();
         jQuery('.collapsible').collapsible();
+    }
+
+    private onNewRoomCreation() {
+        this.getRoomsPerBuilding();
+    }
+
+    private newRoomOpenModal() {
+        jQuery('select').material_select();
+    }
+
+    private setRoomsPerBuilding(response: Response) {
+        this.buildingsRooms = response.json();
+    }
+
+    private getBuildings() {
+        return Object.keys(this.buildingsRooms);
+    }
+
+    private getRoomsPerBuilding(){
+        this.http.req({url: "rooms_per_building",
+                       handler: this.setRoomsPerBuilding.bind(this)});
     }
 }
