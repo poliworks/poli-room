@@ -26,7 +26,7 @@ import 'rxjs/add/operator/switchMap';
 
         </div>
     </div>
-    <new-event-modal [roomId]="roomId" (onNewActivityCreation)="onNewActivityCreation();"></new-event-modal>
+    <new-event-modal [roomId]="roomId" (onNewActivityCreation)="onNewActivityCreation()"></new-event-modal>
     <new-problem-modal [roomId]="roomId" (onNewProblemCreation)="onNewProblemCreation()"></new-problem-modal>
     `
 })

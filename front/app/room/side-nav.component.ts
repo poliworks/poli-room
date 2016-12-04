@@ -17,7 +17,7 @@ declare var jQuery : any;
           <div class="waves-effect waves-blue collapsible-header">{{building}}</div>
           <div class="collapsible-body">
             <div class="collection">
-              <a *ngFor="let room of this.buildingsRooms[building]" class="room" routerLink="/room/{{room.id}}" href="#">{{room.name}}</a>
+              <a *ngFor="let room of buildingsRooms[building]" class="room" routerLink="/room/{{room.id}}">{{room.name}}</a>
             </div>
           </div>
         </li>
