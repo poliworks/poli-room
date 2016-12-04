@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {Router, Params, NavigationExtras, ActivatedRoute} from '@angular/router';
-import {HttpService} from "../shared/http.service";
+import {HttpService} from "../../shared/http.service";
 import {Response} from "@angular/http";
 
 @Component({

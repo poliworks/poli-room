@@ -1,12 +1,11 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
-import { Router,
-    NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import {HttpService} from "../shared/http.service";
 import {Response} from "@angular/http";
 declare var jQuery : any;
 @Component({
     selector: `new-room-modal`,
-    styleUrls: ['app/room/new-room.css'],
+    styleUrls: ['assets/css/new-room.css'],
     template: `
     <div id="new-room-modal" class="modal modal-fixed-footer">
         <div class="modal-content">

@@ -10,13 +10,13 @@ import { RoomComponent } from "./room/room-page.component";
 import {NavbarComponent} from "./shared/navbar.component";
 import {SidenavComponent} from "./room/side-nav.component";
 import {RoomContentComponent} from "./room/room-content.component";
-import {NextActivityComponent} from "./room/next-activity.component";
-import {ProblemsComponent} from "./room/problems.component";
-import {FeaturesComponent} from "./room/features.component";
+import {NextActivityComponent} from "./room/event/next-activity.component";
+import {ProblemsComponent} from "./room/problem/problems.component";
+import {FeaturesComponent} from "./room/feature/features.component";
 import {NewRoomComponent} from "./room/new-room.component";
-import {NewActivityComponent} from "./room/new-activity.component";
-import {NewProblemComponent} from "./room/new-problem.component";
-import {SelectFeatureComponent} from "./room/select-feature.component";
+import {NewActivityComponent} from "./room/event/new-activity.component";
+import {NewProblemComponent} from "./room/problem/new-problem.component";
+import {SelectFeatureComponent} from "./room/feature/select-feature.component";
 import {RegisterFormComponent} from "./login/register-form.component";
 
 const appRoutes : Routes = [

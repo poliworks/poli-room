@@ -1,7 +1,7 @@
 import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import { Router,
     NavigationExtras } from '@angular/router';
-import {HttpService} from "../shared/http.service";
+import {HttpService} from "../../shared/http.service";
 declare var jQuery : any;
 declare var flatpickr : any;
 declare var moment : any;
