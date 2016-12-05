@@ -7,23 +7,23 @@ declare var moment: any;
 
 @Component({
     selector: `new-event-modal`,
-    styleUrls: ['assets/css/new-activity.css'],
+    styleUrls: ['assets/css/new-event.css'],
     template: `
-    <div id="new-activity-modal" class="modal modal-fixed-footer">
+    <div id="new-event-modal" class="modal modal-fixed-footer">
         <div class="modal-content">
           <h4>Nova Atividade</h4>
             <div class="row">
-                <form id="new-activity-form" class="col s12">
+                <form id="new-event-form" class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
-                          <input id="activity_name" type="text" class="validate" [(ngModel)]="event.name" name="name">
-                          <label for="activity_name">Nome da Atividade</label>
+                          <input id="event_name" type="text" class="validate" [(ngModel)]="event.name" name="name">
+                          <label for="event_name">Nome da Atividade</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                          <textarea id="activity_description" class="materialize-textarea" [(ngModel)]="event.description" name="description"></textarea>
-                          <label for="activity_description">Descrição</label>
+                          <textarea id="Event_description" class="materialize-textarea" [(ngModel)]="event.description" name="description"></textarea>
+                          <label for="event_description">Descrição</label>
                         </div>
                     </div>
                     <div class="row">
@@ -50,14 +50,14 @@ declare var moment: any;
             </div>
         </div>
         <div class="modal-footer">
-          <a (click)="createActivity()" class="modal-action modal-close waves-effect waves-green btn-flat ">Criar Atividade</a>
+          <a (click)="createEvent()" class="modal-action modal-close waves-effect waves-green btn-flat ">Criar Atividade</a>
         </div>
     </div>
     `
 })
 export class NewEventComponent implements OnInit {
 
-    @Output() onNewActivityCreation = new EventEmitter<Event>();
+    @Output() onNewEventCreation = new EventEmitter<Event>();
     @Input() roomId: number;
 
     event: Event = new Event();
@@ -80,20 +80,20 @@ export class NewEventComponent implements OnInit {
         });
     }
 
-    createActivity() {
-        this.event.recurrence = this.recurrenceTypesMap[jQuery("#new-activity-form input.select-dropdown")[0].value];
-        this.registerActivity(this.event);
+    createEvent() {
+        this.event.recurrence = this.recurrenceTypesMap[jQuery("#new-event-form input.select-dropdown")[0].value];
+        this.registerEvent(this.event);
     }
 
-    emitNewActivityCreation(activity: any) {
-        this.onNewActivityCreation.emit(this.event);
+    emitNewEventCreation(event: any) {
+        this.onNewEventCreation.emit(this.event);
     }
 
-    registerActivity(activity: Event) {
+    registerEvent(eventt: Event) {
         let r = {
-            "name": activity.name,
-            "description": activity.description,
-            "recurrence": activity.recurrence,
+            "name": event.name,
+            "description": event.description,
+            "recurrence": event.recurrence,
             "startTime": parseInt(moment(this.startTimeString).format("X")),
             "endTime": parseInt(moment(this.endTimeString).format("X")),
             "scheduledBy": HttpService.user.id};
@@ -101,7 +101,7 @@ export class NewEventComponent implements OnInit {
         this.http.req({url: "register_events",
                        body: r,
                        replaceMap: {id: this.roomId},
-                       handler: this.emitNewActivityCreation.bind(this)});
+                       handler: this.emitNewEventCreation.bind(this)});
     }
 
     getRecurrenceTypes() {
