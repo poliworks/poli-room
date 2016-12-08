@@ -9,6 +9,7 @@ scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq(
   filters,
+  "org.scalaj" %% "scalaj-http" % "2.3.0",
   "org.flywaydb" %% "flyway-play" % "3.0.1",
   "org.postgresql" % "postgresql" % "9.4.1210",
   "com.pauldijou" %% "jwt-core" % "0.8.1",

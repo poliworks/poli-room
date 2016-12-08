@@ -24,7 +24,8 @@ class TokenService @Inject()(config: Configuration) extends ITokenService {
   private val oneDay = 60 * 60 * 24
 
   override def decode(token: String): Try[JsValue] = {
-      Jwt.decode(token, jwtSecretKey, Seq(JwtAlgorithm.HS256)).map( Json.parse )
+    decodeRSA(token)
+      //Jwt.decode(token, jwtSecretKey, Seq(JwtAlgorithm.HS256)).map( Json.parse )
   }
 
   def decodeRSA(token: String): Try[JsValue] = {

@@ -15,14 +15,14 @@ class UserController @Inject()(tokenService: ITokenService) extends Controller w
 
   def registerUser = Action(schemaCoerce(RegisterUserSchema)) { request =>
     val newUser = User.register(request.body)
-    Ok(newUser.getJsonUserWithToken(tokenService))
+    Ok(newUser)
   }
 
   def login = Action(schemaCoerce(LoginUserSchema)) { request =>
     val user: Option[User] = User.login(request.body)
     Logger.info(user.toString)
     user match {
-      case Some(u) => Ok(u.getJsonUserWithToken(tokenService))
+      case Some(u) => Ok(u.getJsonUserWithToken())
       case None => throw new ForbiddenException("Incorrect email or password")
     }
   }
@@ -30,7 +30,7 @@ class UserController @Inject()(tokenService: ITokenService) extends Controller w
   def getUserFromToken = AuthAction(tokenService)(null) { request =>
     val userId = request.userId;
     val user = DB readOnly { implicit session => new UserDao().findUserById(userId).get }
-    Ok(user.getJsonUserWithToken(tokenService, request.rawToken.get))
+    Ok(user.getJsonUserWithToken(request.rawToken.get))
   }
 
 
