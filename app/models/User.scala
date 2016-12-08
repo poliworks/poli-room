@@ -54,12 +54,9 @@ object User extends DatabaseModel[User]("users") {
   }
 
   def login(login: LoginUserSchema): Option[JsValue] = DB readOnly { implicit session =>
-    new UserDao().findUserByEmail(login.email) match {
-      case Some(u) => {
+    new UserDao().findUserByEmail(login.email).map { u =>
         val response = Http("http://localhost:3000/login").header("Content-Type", "application/json").postData(login.toJson.toString()).asString
-        if (response.code == 403) None else Some(u.getJsonUserWithToken((Json.parse(response.body) \ "token").as[String]))
-      }
-      case None => None
+        if (response.code == 403) null else u.getJsonUserWithToken((Json.parse(response.body) \ "token").as[String])
     }
 
   }
