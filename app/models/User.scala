@@ -42,8 +42,7 @@ object User extends DatabaseModel[User]("users") {
   }
 
   private def registerUserAuth(user: User, password: String)(implicit session: DBSession): JsValue = {
-    val dao = new UserDao()
-    val postUser = (Json.toJson(dao.createUser(user)).as[JsObject] + ("password" -> JsString(password))).toString()
+    val postUser = (Json.toJson(new UserDao().createUser(user)).as[JsObject] + ("password" -> JsString(password))).toString()
     val response = Http("http://localhost:3000/register").header("Content-Type", "application/json").postData(postUser).asString.body
     Json.parse(response)
   }
@@ -54,10 +53,15 @@ object User extends DatabaseModel[User]("users") {
     User.register(userToRegister, registerUserSchema.password)
   }
 
-  def login(login: LoginUserSchema): Option[User] = DB readOnly { implicit session =>
-    val user: Option[User] = new UserDao().findUserByEmail(login.email)
-    // req to auth
-    user
+  def login(login: LoginUserSchema): Option[JsValue] = DB readOnly { implicit session =>
+    new UserDao().findUserByEmail(login.email) match {
+      case Some(u) => {
+        val response = Http("http://localhost:3000/login").header("Content-Type", "application/json").postData(login.toJson.toString()).asString
+        if (response.code == 403) None else Some(u.getJsonUserWithToken((Json.parse(response.body) \ "token").as[String]))
+      }
+      case None => None
+    }
+
   }
 
 }
