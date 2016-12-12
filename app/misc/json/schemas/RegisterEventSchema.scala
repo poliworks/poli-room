@@ -1,5 +1,7 @@
 package misc.json.schemas
 
+import java.util.UUID
+
 import org.joda.time.DateTime
 import play.api.libs.json.{JsValue, Json, Reads, Writes}
 import traits.{JsonSchema, SchemaObject}
@@ -7,7 +9,7 @@ import traits.{JsonSchema, SchemaObject}
 /**
   * Created by leoiacovini on 12/1/16.
   */
-case class RegisterEventSchema(name: String, description: String, recurrence: String, scheduledBy: Long, startTime: DateTime, endTime: DateTime) extends JsonSchema {
+case class RegisterEventSchema(name: String, description: String, recurrence: String, scheduledBy: UUID, startTime: DateTime, endTime: DateTime) extends JsonSchema {
   override def toJson: JsValue = Json.toJson(this)
 }
 

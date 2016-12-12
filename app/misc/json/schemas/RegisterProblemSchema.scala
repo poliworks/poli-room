@@ -1,12 +1,14 @@
 package misc.json.schemas
 
+import java.util.UUID
+
 import play.api.libs.json.{JsValue, Json, Reads, Writes}
 import traits.{JsonSchema, SchemaObject}
 
 /**
   * Created by leoiacovini on 12/1/16.
   */
-case class RegisterProblemSchema(name: String, description: String, reportedBy: Long, featureId: Option[Long]) extends JsonSchema {
+case class RegisterProblemSchema(name: String, description: String, reportedBy: UUID, featureId: Option[Long]) extends JsonSchema {
   override def toJson: JsValue = Json.toJson(this)
 }
 
