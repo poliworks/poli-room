@@ -3,21 +3,23 @@ package components
 import java.io.FileReader
 import java.security.PublicKey
 import javax.inject.Inject
+
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo
 import org.bouncycastle.openssl.PEMParser
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter
 import pdi.jwt.{Jwt, JwtAlgorithm, JwtClaim}
-import play.api.Configuration
+import play.api.{Configuration, Environment, Play}
 import play.api.libs.json.{JsValue, Json}
 import traits.ITokenService
 
+import scala.io.Source
 import scala.util.Try
 
-class TokenService @Inject()(config: Configuration) extends ITokenService {
+class TokenService @Inject()(config: Configuration, environment: Environment) extends ITokenService {
 
   private val jwtSecretKey = config.getString("jwtSecretKey").get
   private val jwtPublicKey: PublicKey = {
-    val pem = new PEMParser(new FileReader("conf/jwtKey.key.pub")).readObject()
+    val pem = new PEMParser(Source.fromInputStream(environment.resourceAsStream("jwtKey.key.pub").get).reader()).readObject()
     new JcaPEMKeyConverter().getPublicKey(pem.asInstanceOf[SubjectPublicKeyInfo])
   }
 
