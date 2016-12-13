@@ -9,7 +9,7 @@ INSERT INTO rooms (name, building, department, size) VALUES ('Auditorio', 'Civil
 INSERT INTO rooms (name, building, department, size) VALUES ('Sala 2', 'Civil', 'PCC', 20);
 INSERT INTO rooms (name, building, department, size) VALUES ('Sala 3', 'Civil', 'PCC', 30);
 INSERT INTO rooms (name, building, department, size) VALUES ('Laboratorio', 'Civil', 'PCC', 30);
-INSERT INTO rooms (name, building, department, size) VALUES ('SAla 4', 'Bienio', 'MAC', 10);
+INSERT INTO rooms (name, building, department, size) VALUES ('Sala 4', 'Bienio', 'MAC', 10);
 INSERT INTO rooms (name, building, department, size) VALUES ('Auditorio Vermelho', 'Bienio', 'MAC', 20);
 INSERT INTO rooms (name, building, department, size) VALUES ('Sala 5', 'Bienio', 'MAC', 20);
 INSERT INTO rooms (name, building, department, size) VALUES ('Sala 5', 'Bienio', 'MAC', 30);
